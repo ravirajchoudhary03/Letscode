@@ -44,7 +44,7 @@ function generateBrandData(brandName, category) {
     const totalMentions = getRandomInt(5000, 50000);
     const mentionGrowth = getRandomInt(-5, 25);
 
-    const platforms = ['Reddit', 'Google Search', 'YouTube', 'Twitter', 'TikTok'];
+    const platforms = ['Reddit', 'Google Search', 'YouTube'];
     const topPlatform = platforms[getRandomInt(0, platforms.length - 1)];
     const topPlatformMentions = Math.floor(totalMentions * (0.3 + Math.random() * 0.3));
 
