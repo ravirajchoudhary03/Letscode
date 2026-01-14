@@ -47,7 +47,7 @@ class RedditScraperProvider(BaseProvider):
             
             # Fetch search results page
             html = self.utils.fetch_with_retry(search_url)
-            soup = BeautifulSoup(html, 'lxml')
+            soup = BeautifulSoup(html, 'html.parser')
             
             # Find post containers
             posts = soup.find_all('div', class_='thing', limit=limit)

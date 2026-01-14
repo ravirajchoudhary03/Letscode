@@ -54,7 +54,7 @@ class NewsScraperProvider(BaseProvider):
             try:
                 url = source_template.format(keyword=keyword)
                 html = self.utils.fetch_with_retry(url)
-                soup = BeautifulSoup(html, 'lxml')
+                soup = BeautifulSoup(html, 'html.parser')
                 
                 # Parse Google News results
                 articles = soup.find_all('div', class_='g', limit=10)
