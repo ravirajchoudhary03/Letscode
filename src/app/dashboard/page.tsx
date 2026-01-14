@@ -54,6 +54,31 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("Overview");
   const { data: session } = useSession();
   const [profileOpen, setProfileOpen] = useState(false);
+  const [brandSearch, setBrandSearch] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleBrandSearch = async () => {
+    if (!brandSearch.trim()) return;
+
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/brands?name=${encodeURIComponent(brandSearch)}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        setSelectedBrand(data);
+        setActiveTab("Product mention frequency"); // Navigate to first tab
+      } else {
+        alert(`Brand not found. Try: ${data.available?.join(', ')}`);
+      }
+    } catch (error) {
+      console.error('Error fetching brand data:', error);
+      alert('Error searching for brand');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const sidebarItems = [
     { name: "Overview", icon: LayoutDashboard },
@@ -175,11 +200,18 @@ export default function Dashboard() {
               <div className="relative shadow-xl rounded-2xl">
                 <input
                   type="text"
-                  placeholder="Enter brand name..."
+                  placeholder="Enter brand name... (try: Zara, Nike, H&M)"
+                  value={brandSearch}
+                  onChange={(e) => setBrandSearch(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleBrandSearch()}
                   className="w-full px-8 py-6 text-2xl rounded-2xl border-0 shadow-sm focus:outline-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-gray-300"
                 />
-                <button className="absolute right-3 top-3 bottom-3 bg-black text-white px-8 rounded-xl font-medium hover:bg-neutral-800 transition-colors flex items-center gap-2">
-                  Track <ArrowRight size={18} />
+                <button
+                  onClick={handleBrandSearch}
+                  disabled={loading}
+                  className="absolute right-3 top-3 bottom-3 bg-black text-white px-8 rounded-xl font-medium hover:bg-neutral-800 transition-colors flex items-center gap-2 disabled:opacity-50"
+                >
+                  {loading ? 'Searching...' : 'Track'} <ArrowRight size={18} />
                 </button>
               </div>
               <p className="text-gray-400">
@@ -213,8 +245,8 @@ export default function Dashboard() {
               <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                 <p className="text-sm font-medium text-gray-500 mb-2">Total Mentions</p>
                 <div className="flex items-baseline gap-3">
-                  <h2 className="text-4xl font-bold text-gray-900">14,520</h2>
-                  <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">↗ +12%</span>
+                  <h2 className="text-4xl font-bold text-gray-900">{selectedBrand?.totalMentions?.toLocaleString() || '14,520'}</h2>
+                  <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">↗ +{selectedBrand?.mentionGrowth || 12}%</span>
                 </div>
                 <p className="text-xs text-gray-400 mt-1">Across all platforms</p>
               </div>
@@ -223,10 +255,10 @@ export default function Dashboard() {
               <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                 <p className="text-sm font-medium text-gray-500 mb-2">Top Contributing Platform</p>
                 <div className="flex items-center gap-2 mb-1">
-                  <h2 className="text-4xl font-bold text-sky-800">Reddit</h2>
+                  <h2 className="text-4xl font-bold text-sky-800">{selectedBrand?.topPlatform?.name || 'Reddit'}</h2>
                   <span className="text-sky-600"><MessageSquare size={28} /></span>
                 </div>
-                <p className="text-xs text-gray-400">6,200 mentions</p>
+                <p className="text-xs text-gray-400">{selectedBrand?.topPlatform?.mentions?.toLocaleString() || '6,200'} mentions</p>
               </div>
             </div>
 
