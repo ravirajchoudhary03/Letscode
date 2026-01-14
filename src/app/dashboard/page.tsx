@@ -27,7 +27,10 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
-  Cell
+  Cell,
+  PieChart as RechartsPieChart,
+  Pie,
+  Legend
 } from "recharts";
 import { DotCube } from "@/components/DotCube";
 import Link from "next/link";
@@ -38,6 +41,13 @@ const platformData = [
   { name: "Reddit", value: 6200, color: "#7DD3FC", icon: "/reddit-icon.png" }, // Sky blue
   { name: "Google Search", value: 4800, color: "#93C5FD", icon: "/google-icon.png" }, // Blue 300
   { name: "YouTube", value: 3520, color: "#60A5FA", icon: "/youtube-icon.png" }, // Blue 400
+];
+
+const shareOfVoiceData = [
+  { name: "Zara", value: 45, mentions: 2700, color: "#5EEAD4" }, // Turquoise/Teal
+  { name: "H&M", value: 30, mentions: 1800, color: "#D1D5DB" }, // Gray
+  { name: "Calvin Klein", value: 15, mentions: 900, color: "#D9C9BA" }, // Beige/Tan
+  { name: "Others", value: 10, mentions: 600, color: "#93A8BA" }, // Blue-gray
 ];
 
 export default function Dashboard() {
@@ -274,6 +284,129 @@ export default function Dashboard() {
               </div>
             </div>
 
+          </motion.div>
+        ) : activeTab === "Share of voice" ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="space-y-6"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900 mb-1">
+                  Share of Voice (SOV)
+                </h1>
+                <p className="text-sm text-gray-500">
+                  Represents a brand's share of total online mentions within its category.
+                </p>
+              </div>
+              <div className="flex items-center bg-white border border-gray-200 rounded-lg p-1">
+                <button className="px-3 py-1.5 text-sm font-medium bg-blue-100 text-blue-700 rounded-md shadow-sm">Last 7 days</button>
+                <button className="px-3 py-1.5 text-sm font-medium text-gray-500 hover:text-gray-900">Last 30 days</button>
+              </div>
+            </div>
+
+            {/* Formula Card */}
+            <div className="bg-cyan-50 border border-cyan-200 p-4 rounded-2xl flex items-center gap-3">
+              <div className="flex-1">
+                <p className="text-sm text-gray-700">
+                  Share of Voice = (Brand Mentions / Total Category Mentions) × 100
+                </p>
+              </div>
+              <div className="w-5 h-5 rounded-full border-2 border-cyan-500 flex items-center justify-center text-cyan-500 text-xs font-bold">
+                i
+              </div>
+            </div>
+
+            {/* Platform Tabs */}
+            <div className="flex items-center gap-4 text-sm">
+              <button className="flex items-center gap-2 px-3 py-1.5 bg-cyan-100 text-cyan-700 rounded-lg font-medium">
+                <MessageSquare size={16} /> Reddit
+              </button>
+              <button className="flex items-center gap-2 px-3 py-1.5 text-gray-500 hover:text-gray-900">
+                <Search size={16} /> Google
+              </button>
+              <button className="flex items-center gap-2 px-3 py-1.5 text-gray-500 hover:text-gray-900">
+                <div className="w-4 h-3 bg-gray-600 rounded-sm" /> YouTube
+              </button>
+              <span className="text-xs text-gray-400 ml-auto">Based on public online mentions</span>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Donut Chart */}
+              <div className="lg:col-span-2 bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                <div className="flex items-center justify-center h-96">
+                  <RechartsPieChart width={500} height={400}>
+                    <Pie
+                      data={shareOfVoiceData}
+                      cx={250}
+                      cy={180}
+                      innerRadius={90}
+                      outerRadius={140}
+                      paddingAngle={2}
+                      dataKey="value"
+                    >
+                      {shareOfVoiceData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          return (
+                            <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-100">
+                              <p className="font-bold text-gray-900">{payload[0].name}</p>
+                              <p className="text-sm text-gray-600">{payload[0].value}% ({payload[0].payload.mentions.toLocaleString()} Mentions)</p>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
+                    />
+                  </RechartsPieChart>
+                  {/* Center Text */}
+                  <div className="absolute flex flex-col items-center justify-center">
+                    <p className="text-5xl font-bold text-gray-900">45%</p>
+                    <p className="text-sm text-gray-500 mt-1">Zara SOV</p>
+                  </div>
+                </div>
+
+                {/* Legend */}
+                <div className="flex justify-center gap-6 mt-4 flex-wrap">
+                  {shareOfVoiceData.map((item) => (
+                    <div key={item.name} className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                      <span className="text-sm text-gray-600">{item.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Side Cards */}
+              <div className="space-y-6">
+                {/* Your Brand's SOV Card */}
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <p className="text-sm font-medium text-gray-500 mb-2 flex items-center gap-2">
+                    <TrendingUp size={16} />
+                    Your Brand's SOV (%)
+                  </p>
+                  <h2 className="text-5xl font-bold text-gray-900 mb-2">45%</h2>
+                  <p className="text-sm text-emerald-600 font-medium">↗ +8% from last week</p>
+                </div>
+
+                {/* Top Competitor Card */}
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <p className="text-sm font-medium text-gray-500 mb-2 flex items-center gap-2">
+                    <Users size={16} />
+                    Top Competitor by SOV
+                  </p>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2">H&M</h2>
+                  <p className="text-sm text-gray-500 flex items-center gap-1">
+                    30% <span className="text-gray-400">━ No change</span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         ) : (
           <motion.div
