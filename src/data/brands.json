@@ -2,252 +2,307 @@
     "brands": {
         "zara": {
             "name": "Zara",
-            "totalMentions": 14520,
+            "totalMentions": 14523,
             "mentionGrowth": 12,
             "topPlatform": {
                 "name": "Reddit",
-                "mentions": 6200
+                "mentions": 6247
             },
             "platformDistribution": {
-                "reddit": 6200,
-                "googleSearch": 4800,
-                "youtube": 3520
+                "reddit": 6247,
+                "googleSearch": 4831,
+                "youtube": 3445
             },
             "shareOfVoice": {
                 "score": 45,
-                "mentions": 2700,
+                "mentions": 2714,
+                "growth": 8,
                 "competitors": [
                     {
                         "name": "H&M",
                         "score": 30,
-                        "mentions": 1800
+                        "mentions": 1809
                     },
                     {
                         "name": "Calvin Klein",
                         "score": 15,
-                        "mentions": 900
+                        "mentions": 904
                     },
                     {
-                        "name": "Others",
+                        "name": "Uniqlo",
                         "score": 10,
-                        "mentions": 600
+                        "mentions": 603
                     }
                 ]
             },
             "marketIndexScore": {
                 "score": 78,
                 "categoryAverage": 66,
-                "trend": "+12"
+                "trend": "+12",
+                "visibility": 0.82,
+                "engagement": 0.75,
+                "breadth": 0.71
             },
             "platformVisibility": {
                 "normalizedScores": {
-                    "zara": 75,
+                    "brand": 75,
                     "competitor1": 60,
                     "hm": 45,
                     "competitor2": 40
                 },
-                "strongestPlatform": "Reddit",
-                "competitorLeadPlatform": "Google Search"
+                "strongestPlatform": {
+                    "name": "Reddit",
+                    "score": 75
+                },
+                "competitorLeadPlatform": {
+                    "name": "Google Search",
+                    "competitor": "H&M",
+                    "score": 68
+                }
             }
         },
         "h&m": {
             "name": "H&M",
-            "totalMentions": 12800,
+            "totalMentions": 12847,
             "mentionGrowth": 8,
             "topPlatform": {
                 "name": "Google Search",
-                "mentions": 5400
+                "mentions": 5412
             },
             "platformDistribution": {
-                "reddit": 3200,
-                "googleSearch": 5400,
-                "youtube": 4200
+                "reddit": 3234,
+                "googleSearch": 5412,
+                "youtube": 4201
             },
             "shareOfVoice": {
                 "score": 30,
-                "mentions": 1800,
+                "mentions": 1809,
+                "growth": 3,
                 "competitors": [
                     {
                         "name": "Zara",
                         "score": 45,
-                        "mentions": 2700
+                        "mentions": 2714
                     },
                     {
                         "name": "Calvin Klein",
                         "score": 15,
-                        "mentions": 900
+                        "mentions": 904
                     },
                     {
-                        "name": "Others",
+                        "name": "Uniqlo",
                         "score": 10,
-                        "mentions": 600
+                        "mentions": 603
                     }
                 ]
             },
             "marketIndexScore": {
                 "score": 68,
                 "categoryAverage": 66,
-                "trend": "+2"
+                "trend": "+2",
+                "visibility": 0.71,
+                "engagement": 0.68,
+                "breadth": 0.65
             },
             "platformVisibility": {
                 "normalizedScores": {
+                    "brand": 68,
+                    "competitor1": 75,
                     "zara": 75,
-                    "competitor1": 68,
-                    "hm": 68,
-                    "competitor2": 45
+                    "competitor2": 52
                 },
-                "strongestPlatform": "Google Search",
-                "competitorLeadPlatform": "Reddit"
+                "strongestPlatform": {
+                    "name": "Google Search",
+                    "score": 68
+                },
+                "competitorLeadPlatform": {
+                    "name": "Reddit",
+                    "competitor": "Zara",
+                    "score": 75
+                }
             }
         },
         "nike": {
             "name": "Nike",
-            "totalMentions": 28400,
+            "totalMentions": 28467,
             "mentionGrowth": 18,
             "topPlatform": {
                 "name": "YouTube",
-                "mentions": 12200
+                "mentions": 12289
             },
             "platformDistribution": {
-                "reddit": 8100,
-                "googleSearch": 8100,
-                "youtube": 12200
+                "reddit": 8123,
+                "googleSearch": 8055,
+                "youtube": 12289
             },
             "shareOfVoice": {
                 "score": 52,
-                "mentions": 3120,
+                "mentions": 3123,
+                "growth": 15,
                 "competitors": [
                     {
                         "name": "Adidas",
                         "score": 28,
-                        "mentions": 1680
+                        "mentions": 1682
                     },
                     {
                         "name": "Puma",
                         "score": 12,
-                        "mentions": 720
+                        "mentions": 721
                     },
                     {
-                        "name": "Others",
+                        "name": "Under Armour",
                         "score": 8,
-                        "mentions": 480
+                        "mentions": 481
                     }
                 ]
             },
             "marketIndexScore": {
                 "score": 85,
                 "categoryAverage": 72,
-                "trend": "+13"
+                "trend": "+13",
+                "visibility": 0.89,
+                "engagement": 0.84,
+                "breadth": 0.81
             },
             "platformVisibility": {
                 "normalizedScores": {
-                    "nike": 85,
+                    "brand": 85,
                     "competitor1": 72,
                     "adidas": 68,
                     "competitor2": 55
                 },
-                "strongestPlatform": "YouTube",
-                "competitorLeadPlatform": "Google Search"
+                "strongestPlatform": {
+                    "name": "YouTube",
+                    "score": 85
+                },
+                "competitorLeadPlatform": {
+                    "name": "Google Search",
+                    "competitor": "Adidas",
+                    "score": 74
+                }
             }
         },
         "adidas": {
             "name": "Adidas",
-            "totalMentions": 18200,
+            "totalMentions": 18234,
             "mentionGrowth": 10,
             "topPlatform": {
                 "name": "Reddit",
-                "mentions": 7800
+                "mentions": 7856
             },
             "platformDistribution": {
-                "reddit": 7800,
-                "googleSearch": 6200,
-                "youtube": 4200
+                "reddit": 7856,
+                "googleSearch": 6189,
+                "youtube": 4189
             },
             "shareOfVoice": {
                 "score": 28,
-                "mentions": 1680,
+                "mentions": 1682,
+                "growth": 5,
                 "competitors": [
                     {
                         "name": "Nike",
                         "score": 52,
-                        "mentions": 3120
+                        "mentions": 3123
                     },
                     {
                         "name": "Puma",
                         "score": 12,
-                        "mentions": 720
+                        "mentions": 721
                     },
                     {
-                        "name": "Others",
+                        "name": "Under Armour",
                         "score": 8,
-                        "mentions": 480
+                        "mentions": 481
                     }
                 ]
             },
             "marketIndexScore": {
                 "score": 72,
                 "categoryAverage": 72,
-                "trend": "0"
+                "trend": "0",
+                "visibility": 0.75,
+                "engagement": 0.73,
+                "breadth": 0.69
             },
             "platformVisibility": {
                 "normalizedScores": {
+                    "brand": 72,
+                    "competitor1": 85,
                     "nike": 85,
-                    "competitor1": 72,
-                    "adidas": 72,
                     "competitor2": 58
                 },
-                "strongestPlatform": "Reddit",
-                "competitorLeadPlatform": "YouTube"
+                "strongestPlatform": {
+                    "name": "Reddit",
+                    "score": 72
+                },
+                "competitorLeadPlatform": {
+                    "name": "YouTube",
+                    "competitor": "Nike",
+                    "score": 85
+                }
             }
         },
         "calvin klein": {
             "name": "Calvin Klein",
-            "totalMentions": 8900,
+            "totalMentions": 8945,
             "mentionGrowth": 5,
             "topPlatform": {
                 "name": "Google Search",
-                "mentions": 3800
+                "mentions": 3812
             },
             "platformDistribution": {
-                "reddit": 2400,
-                "googleSearch": 3800,
-                "youtube": 2700
+                "reddit": 2423,
+                "googleSearch": 3812,
+                "youtube": 2710
             },
             "shareOfVoice": {
                 "score": 15,
-                "mentions": 900,
+                "mentions": 904,
+                "growth": -2,
                 "competitors": [
                     {
                         "name": "Zara",
                         "score": 45,
-                        "mentions": 2700
+                        "mentions": 2714
                     },
                     {
                         "name": "H&M",
                         "score": 30,
-                        "mentions": 1800
+                        "mentions": 1809
                     },
                     {
-                        "name": "Others",
+                        "name": "Uniqlo",
                         "score": 10,
-                        "mentions": 600
+                        "mentions": 603
                     }
                 ]
             },
             "marketIndexScore": {
                 "score": 58,
                 "categoryAverage": 66,
-                "trend": "-8"
+                "trend": "-8",
+                "visibility": 0.61,
+                "engagement": 0.57,
+                "breadth": 0.54
             },
             "platformVisibility": {
                 "normalizedScores": {
+                    "brand": 52,
+                    "competitor1": 75,
                     "zara": 75,
-                    "competitor1": 60,
-                    "calvinklein": 52,
-                    "competitor2": 40
+                    "competitor2": 45
                 },
-                "strongestPlatform": "Google Search",
-                "competitorLeadPlatform": "Reddit"
+                "strongestPlatform": {
+                    "name": "Google Search",
+                    "score": 52
+                },
+                "competitorLeadPlatform": {
+                    "name": "Reddit",
+                    "competitor": "Zara",
+                    "score": 75
+                }
             }
         }
     }

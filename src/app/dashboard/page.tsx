@@ -423,8 +423,8 @@ export default function Dashboard() {
                     <TrendingUp size={16} />
                     Your Brand's SOV (%)
                   </p>
-                  <h2 className="text-5xl font-bold text-gray-900 mb-2">45%</h2>
-                  <p className="text-sm text-emerald-600 font-medium">↗ +8% from last week</p>
+                  <h2 className="text-5xl font-bold text-gray-900 mb-2">{selectedBrand?.shareOfVoice?.score || 45}%</h2>
+                  <p className="text-sm text-emerald-600 font-medium">↗ +{selectedBrand?.shareOfVoice?.growth || 8}% from last week</p>
                 </div>
 
                 {/* Top Competitor Card */}
@@ -433,9 +433,9 @@ export default function Dashboard() {
                     <Users size={16} />
                     Top Competitor by SOV
                   </p>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-2">H&M</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2">{selectedBrand?.shareOfVoice?.competitors?.[0]?.name || 'H&M'}</h2>
                   <p className="text-sm text-gray-500 flex items-center gap-1">
-                    30% <span className="text-gray-400">━ No change</span>
+                    {selectedBrand?.shareOfVoice?.competitors?.[0]?.score || 30}% <span className="text-gray-400">━ No change</span>
                   </p>
                 </div>
               </div>
@@ -531,7 +531,7 @@ export default function Dashboard() {
 
                   {/* Center Score */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/4 text-center">
-                    <p className="text-7xl font-bold text-teal-500">78</p>
+                    <p className="text-7xl font-bold text-teal-500">{selectedBrand?.marketIndexScore?.score || 78}</p>
                   </div>
 
                   {/* Labels */}
@@ -558,8 +558,8 @@ export default function Dashboard() {
                 {/* Your Score Card */}
                 <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                   <p className="text-sm font-medium text-gray-500 mb-2">Your Score</p>
-                  <h2 className="text-6xl font-bold text-teal-500 mb-2">78</h2>
-                  <p className="text-sm text-emerald-600 font-medium">↗ +12 above average</p>
+                  <h2 className="text-6xl font-bold text-teal-500 mb-2">{selectedBrand?.marketIndexScore?.score || 78}</h2>
+                  <p className="text-sm text-emerald-600 font-medium">↗ {selectedBrand?.marketIndexScore?.trend || '+12'} above average</p>
                 </div>
 
                 {/* Category Average Card */}
@@ -568,7 +568,7 @@ export default function Dashboard() {
                     <BarChart3 size={16} />
                     Category Average
                   </p>
-                  <h2 className="text-6xl font-bold text-gray-900">66</h2>
+                  <h2 className="text-6xl font-bold text-gray-900">{selectedBrand?.marketIndexScore?.categoryAverage || 66}</h2>
                 </div>
               </div>
             </div>
