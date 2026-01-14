@@ -10,7 +10,9 @@ export function DotCube({ size = "small" }: { size?: "small" | "large" }) {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return null;
+  }
 
   const cubeSize = size === "small" ? 24 : 120;
   const dotSize = size === "small" ? 2 : 6;
