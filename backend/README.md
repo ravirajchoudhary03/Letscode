@@ -1,5 +1,11 @@
 # MarketEcho Backend
 
+**🚀 Hackathon Submission Build**
+- **Status:** Active
+- **Backend:** FastAPI + Python
+- **Database:** Supabase (PostgreSQL)
+- **Deployment:** Vercel / Railway ready
+
 Production-grade data ingestion and analytics backend for brand mention tracking.
 
 ## Tech Stack
