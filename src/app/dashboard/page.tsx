@@ -102,7 +102,7 @@ export default function Dashboard() {
       }
     ];
 
-    const competitorData = selectedBrand.shareOfVoice.competitors?.map((comp, idx) => ({
+    const competitorData = selectedBrand.shareOfVoice.competitors?.map((comp: any, idx: number) => ({
       name: comp.name,
       value: comp.score,
       mentions: comp.mentions,
