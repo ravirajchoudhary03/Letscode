@@ -1,16 +1,7 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { DotCube } from "./DotCube";
 
 export function Footer() {
-  const [year, setYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
-
   return (
     <footer className="relative py-12 px-6 border-t border-white/[0.06]">
       <div className="max-w-6xl mx-auto relative z-10">
@@ -18,7 +9,7 @@ export function Footer() {
           <div className="text-center md:text-left">
             <Link href="/" className="text-xl font-bold text-white flex items-center gap-2">
               <DotCube />
-              MarketEcho
+              Marketecho
             </Link>
             <p className="text-gray-500 text-sm mt-2">
               Advanced digital market analytics and tracking.
@@ -38,7 +29,7 @@ export function Footer() {
         </div>
         <div className="mt-8 pt-6 border-t border-white/[0.06] text-center">
           <p className="text-gray-500 text-sm">
-            &copy; {year || "2026"} MarketEcho. All rights reserved.
+            &copy; {new Date().getFullYear()} Marketecho. All rights reserved.
           </p>
         </div>
       </div>
