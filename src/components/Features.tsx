@@ -38,8 +38,8 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="relative py-24 px-6 bg-white z-10">
-      <div className="max-w-7xl mx-auto relative">
+    <section id="features" className="relative py-24 px-6 bg-white">
+      <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -47,15 +47,15 @@ export function Features() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             What MarketEcho Offers
           </h2>
-          <p className="text-[#4b5563] max-w-2xl mx-auto text-lg md:text-xl">
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             A unified system to track brand visibility, measure share of voice, and understand competitive position across digital platforms.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -63,13 +63,13 @@ export function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group p-10 rounded-[2.5rem] bg-white border border-gray-100 hover:shadow-2xl hover:shadow-emerald-900/[0.05] transition-all duration-300"
+              className="group p-6 rounded-xl bg-gray-50 border border-gray-100 hover:border-emerald-200 hover:bg-white hover:shadow-xl hover:shadow-emerald-900/[0.05] transition-all duration-300"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#ecfdf5] flex items-center justify-center mb-8">
-                <feature.icon className="w-6 h-6 text-[#059669]" />
+              <div className="w-12 h-12 rounded-lg bg-emerald-600/10 flex items-center justify-center mb-4 group-hover:bg-emerald-600/20 transition-colors">
+                <feature.icon className="w-6 h-6 text-emerald-600" />
               </div>
-              <h3 className="text-xl font-bold text-black mb-4">{feature.title}</h3>
-              <p className="text-[#4b5563] text-base leading-relaxed">{feature.description}</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>
