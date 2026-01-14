@@ -487,7 +487,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Donut Chart */}
               <div className="lg:col-span-2 bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-                <div className="flex items-center justify-center h-96">
+                <div className="flex items-center justify-center h-96 relative">
                   <RechartsPieChart width={500} height={400}>
                     <Pie
                       data={getShareOfVoiceChartData()}
@@ -517,7 +517,7 @@ export default function Dashboard() {
                     />
                   </RechartsPieChart>
                   {/* Center Text */}
-                  <div className="absolute flex flex-col items-center justify-center">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center pb-5 pointer-events-none">
                     <p className="text-5xl font-bold text-gray-900">{selectedBrand?.shareOfVoice?.score ?? 45}%</p>
                     <p className="text-sm text-gray-500 mt-1">{selectedBrand?.name ?? 'Zara'} SOV</p>
                   </div>
