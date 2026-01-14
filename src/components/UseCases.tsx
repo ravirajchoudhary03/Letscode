@@ -23,7 +23,7 @@ const useCases = [
 
 export function UseCases() {
   return (
-    <section id="use-cases" className="relative py-24 px-6 bg-white">
+    <section id="use-cases" className="relative py-24 px-6 bg-white z-10">
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

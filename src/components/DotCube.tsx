@@ -1,17 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 
 export function DotCube({ size = "small" }: { size?: "small" | "large" }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   const cubeSize = size === "small" ? 24 : 120;
   const dotSize = size === "small" ? 2 : 6;
   const gap = size === "small" ? 6 : 24;
