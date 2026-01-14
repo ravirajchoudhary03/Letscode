@@ -15,7 +15,8 @@ import {
   Bell,
   Search,
   ChevronDown,
-  ArrowRight
+  ArrowRight,
+  Loader2
 } from "lucide-react";
 import {
   AreaChart,
@@ -57,26 +58,50 @@ export default function Dashboard() {
   const [brandSearch, setBrandSearch] = useState("");
   const [selectedBrand, setSelectedBrand] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingStep, setLoadingStep] = useState("");
 
   const handleBrandSearch = async () => {
     if (!brandSearch.trim()) return;
 
     setLoading(true);
+    setLoadingStep("Initiating market scan...");
+
     try {
+      // 1. Fetch data first (background)
       const response = await fetch(`/api/brands?name=${encodeURIComponent(brandSearch)}`);
       const data = await response.json();
 
-      if (response.ok) {
-        setSelectedBrand(data);
-        setActiveTab("Product mention frequency"); // Navigate to first tab
-      } else {
+      if (!response.ok) {
+        setLoading(false);
         alert(`Brand not found. Try: ${data.available?.join(', ')}`);
+        return;
       }
+
+      // 2. Simulate realistic scraping delays if data found
+      await new Promise(resolve => setTimeout(resolve, 800));
+      setLoadingStep(`Accessing public APIs for ${data.name}...`);
+
+      await new Promise(resolve => setTimeout(resolve, 1200));
+      setLoadingStep("Scraping mentions from Reddit & YouTube...");
+
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setLoadingStep("Analyzing sentiment patterns...");
+
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setLoadingStep("Aggregating Share of Voice data...");
+
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      // 3. Show Result
+      setSelectedBrand(data);
+      setActiveTab("Product mention frequency");
+
     } catch (error) {
       console.error('Error fetching brand data:', error);
       alert('Error searching for brand');
     } finally {
       setLoading(false);
+      setLoadingStep("");
     }
   };
 
@@ -223,35 +248,71 @@ export default function Dashboard() {
 
         {activeTab === "Overview" ? (
           <div className="flex flex-col items-center justify-center h-[calc(100vh-200px)]">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="w-full max-w-2xl text-center space-y-8"
-            >
-              <h2 className="text-4xl font-bold tracking-tight text-gray-900">
-                What brand do you want to track?
-              </h2>
-              <div className="relative shadow-xl rounded-2xl">
-                <input
-                  type="text"
-                  placeholder="Enter brand name... (try: Zara, Nike, H&M)"
-                  value={brandSearch}
-                  onChange={(e) => setBrandSearch(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleBrandSearch()}
-                  className="w-full px-8 py-6 text-2xl rounded-2xl border-0 shadow-sm focus:outline-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-gray-300"
-                />
-                <button
-                  onClick={handleBrandSearch}
-                  disabled={loading}
-                  className="absolute right-3 top-3 bottom-3 bg-black text-white px-8 rounded-xl font-medium hover:bg-neutral-800 transition-colors flex items-center gap-2 disabled:opacity-50"
-                >
-                  {loading ? 'Searching...' : 'Track'} <ArrowRight size={18} />
-                </button>
-              </div>
-              <p className="text-gray-400">
-                Start by entering a brand, competitor, or keyword to analyze.
-              </p>
-            </motion.div>
+            {loading ? (
+              <motion.div
+                key="loading"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex flex-col items-center justify-center space-y-8 w-full max-w-lg"
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-2xl animate-pulse" />
+                  <div className="relative bg-white p-6 rounded-full border border-gray-100 shadow-xl">
+                    <Loader2 className="animate-spin text-emerald-500" size={48} />
+                  </div>
+                </div>
+
+                <div className="text-center space-y-3 w-full">
+                  <h3 className="text-2xl font-bold text-gray-900 animate-pulse">
+                    {loadingStep}
+                  </h3>
+                  <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                    <motion.div
+                      className="h-full bg-emerald-500"
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 5, ease: "easeInOut" }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-xs text-gray-400 font-mono mt-2">
+                    <span>CONNECTING...</span>
+                    <span>SCRAPING...</span>
+                    <span>ANALYZING...</span>
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="search"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="w-full max-w-2xl text-center space-y-8"
+              >
+                <h2 className="text-4xl font-bold tracking-tight text-gray-900">
+                  What brand do you want to track?
+                </h2>
+                <div className="relative shadow-xl rounded-2xl">
+                  <input
+                    type="text"
+                    placeholder="Enter brand name... (try: Zara, Nike, H&M)"
+                    value={brandSearch}
+                    onChange={(e) => setBrandSearch(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleBrandSearch()}
+                    className="w-full px-8 py-6 text-2xl rounded-2xl border-0 shadow-sm focus:outline-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-gray-300"
+                  />
+                  <button
+                    onClick={handleBrandSearch}
+                    disabled={loading}
+                    className="absolute right-3 top-3 bottom-3 bg-black text-white px-8 rounded-xl font-medium hover:bg-neutral-800 transition-colors flex items-center gap-2 disabled:opacity-50"
+                  >
+                    Track <ArrowRight size={18} />
+                  </button>
+                </div>
+                <p className="text-gray-400">
+                  Start by entering a brand, competitor, or keyword to analyze.
+                </p>
+              </motion.div>
+            )}
           </div>
         ) : activeTab === "Product mention frequency" ? (
           <motion.div
