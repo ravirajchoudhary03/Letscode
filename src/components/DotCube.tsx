@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 export function DotCube({ size = "small" }: { size?: "small" | "large" }) {
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
