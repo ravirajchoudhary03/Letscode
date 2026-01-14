@@ -24,21 +24,20 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Cell
 } from "recharts";
 import { DotCube } from "@/components/DotCube";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 
-const data = [
-  { name: "Mon", value: 400 },
-  { name: "Tue", value: 300 },
-  { name: "Wed", value: 600 },
-  { name: "Thu", value: 800 },
-  { name: "Fri", value: 500 },
-  { name: "Sat", value: 900 },
-  { name: "Sun", value: 1100 },
+const platformData = [
+  { name: "Reddit", value: 6200, color: "#7DD3FC", icon: "/reddit-icon.png" }, // Sky blue
+  { name: "Google Search", value: 4800, color: "#93C5FD", icon: "/google-icon.png" }, // Blue 300
+  { name: "YouTube", value: 3520, color: "#60A5FA", icon: "/youtube-icon.png" }, // Blue 400
 ];
 
 export default function Dashboard() {
@@ -177,6 +176,105 @@ export default function Dashboard() {
               </p>
             </motion.div>
           </div>
+        ) : activeTab === "Product mention frequency" ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="space-y-6"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900 mb-1">
+                  Product Mention Frequency
+                </h1>
+                <p className="text-sm text-gray-500">
+                  Tracks how often a product is talked about online.
+                </p>
+              </div>
+              <div className="flex items-center bg-white border border-gray-200 rounded-lg p-1">
+                <button className="px-3 py-1.5 text-sm font-medium bg-blue-100 text-blue-700 rounded-md shadow-sm">Last 7 days</button>
+                <button className="px-3 py-1.5 text-sm font-medium text-gray-500 hover:text-gray-900">Last 30 days</button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Total Mentions Card */}
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <p className="text-sm font-medium text-gray-500 mb-2">Total Mentions</p>
+                <div className="flex items-baseline gap-3">
+                  <h2 className="text-4xl font-bold text-gray-900">14,520</h2>
+                  <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">↗ +12%</span>
+                </div>
+                <p className="text-xs text-gray-400 mt-1">Across all platforms</p>
+              </div>
+
+              {/* Top Platform Card */}
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <p className="text-sm font-medium text-gray-500 mb-2">Top Contributing Platform</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <h2 className="text-4xl font-bold text-sky-800">Reddit</h2>
+                  <span className="text-sky-600"><MessageSquare size={28} /></span>
+                </div>
+                <p className="text-xs text-gray-400">6,200 mentions</p>
+              </div>
+            </div>
+
+            {/* Mention Counts by Platform Chart */}
+            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+              <h3 className="text-lg font-bold text-gray-900 mb-6">Mention Counts by Platform</h3>
+              <div className="space-y-8">
+                {platformData.map((item, index) => (
+                  <div key={item.name} className="relative">
+                    <div className="flex items-center mb-2">
+                      <div className="w-40 flex items-center gap-2 text-gray-600 font-medium">
+                        {item.name === "Reddit" && <MessageSquare size={18} />}
+                        {item.name === "Google Search" && <Search size={18} />}
+                        {item.name === "YouTube" && <div className="w-4 h-3 bg-gray-600 rounded-sm" />} {/* Placeholder for Youtube Icon */}
+                        {item.name}
+                      </div>
+                      <div className="flex-1 h-12 bg-gray-50 rounded-full overflow-hidden relative">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(item.value / 7000) * 100}%` }}
+                          transition={{ duration: 1, delay: index * 0.1 }}
+                          className="h-full rounded-full"
+                          style={{ backgroundColor: index === 0 ? '#7DD3FC' : index === 1 ? '#93C5FD' : '#64748B' }} // Using Tailwind colors approximating the screenshot
+                        />
+                      </div>
+                      <div className="w-20 text-right font-bold text-gray-700 ml-4">
+                        {item.value.toLocaleString()}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {/* X-Axis Labels Simulation */}
+              <div className="flex justify-between pl-40 pr-20 mt-4 text-xs text-gray-400 border-t border-gray-100 pt-2">
+                <span>0</span>
+                <span>2k</span>
+                <span>4k</span>
+                <span>6k</span>
+                <span>8k</span>
+              </div>
+
+              {/* Legend Simulation */}
+              <div className="flex justify-center gap-6 mt-8">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#7DD3FC]" />
+                  <span className="text-sm text-gray-600">Reddit</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#93C5FD]" />
+                  <span className="text-sm text-gray-600">Google Search</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-slate-500" />
+                  <span className="text-sm text-gray-600">YouTube</span>
+                </div>
+              </div>
+            </div>
+
+          </motion.div>
         ) : (
           <motion.div
             initial={{ opacity: 0 }}
@@ -187,68 +285,8 @@ export default function Dashboard() {
                 {activeTab}
               </h1>
               <p className="text-sm text-gray-500">
-                Detailed analysis and metrics.
+                Detailed analysis and metrics module coming soon.
               </p>
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              {[
-                { label: "Total Mentions", value: "24.5k", trend: "+12.5%", isPositive: true },
-                { label: "Brand Sentiment", value: "82%", trend: "+4.2%", isPositive: true },
-                { label: "Market Share", value: "18.4%", trend: "-0.8%", isPositive: false },
-                { label: "Active Channels", value: "12", trend: "+2", isPositive: true },
-              ].map((stat, i) => (
-                <div
-                  key={stat.label}
-                  className="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm"
-                >
-                  <p className="text-sm font-medium text-gray-500 mb-4">{stat.label}</p>
-                  <div className="flex items-end justify-between">
-                    <h3 className="text-3xl font-bold text-gray-900">{stat.value}</h3>
-                    <span className={`text-xs font-semibold px-2 py-1 rounded-md ${stat.isPositive ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}`}>
-                      {stat.isPositive ? '↗' : '↘'} {stat.trend}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Charts Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-bold text-gray-900">Visibility Trend</h3>
-                  <div className="flex bg-gray-100 p-1 rounded-lg">
-                    {["7D", "1M", "3M", "1Y"].map((range) => (
-                      <button
-                        key={range}
-                        className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${range === '1M' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
-                      >
-                        {range}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="h-[300px] w-full relative">
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-500 mb-3">
-                      <TrendingUp size={24} />
-                    </div>
-                    <p className="text-sm text-gray-400">Chart visualization will be rendered here...</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
-                <h3 className="text-lg font-bold text-gray-900 mb-6">Sentiment Analysis</h3>
-                <div className="h-[300px] w-full flex flex-col items-center justify-center text-center">
-                  <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-500 mb-3">
-                    <PieChart size={24} />
-                  </div>
-                  <p className="text-sm text-gray-400">Distribution chart will be rendered here...</p>
-                </div>
-              </div>
             </div>
           </motion.div>
         )}
