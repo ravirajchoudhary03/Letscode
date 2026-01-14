@@ -1,34 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { 
-  LayoutDashboard, 
-  BarChart3, 
-  PieChart, 
-  LineChart, 
-  LogOut, 
-  TrendingUp, 
-  Users, 
-  MessageSquare, 
+import { motion } from "framer-motion";
+import {
+  LayoutDashboard,
+  BarChart3,
+  PieChart,
+  LineChart,
+  LogOut,
+  TrendingUp,
+  Users,
+  MessageSquare,
   Activity,
-  ChevronRight,
-  Search,
-  Bell
+  Bell,
+  Search
 } from "lucide-react";
-import { 
-  LineChart as ReLineChart, 
-  Line, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
+import {
   AreaChart,
-  Area
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
 } from "recharts";
 import { DotCube } from "@/components/DotCube";
-import { TextScrambler } from "@/components/TextScrambler";
+import Link from "next/link";
 
 const data = [
   { name: "Mon", value: 400 },
@@ -51,145 +48,125 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="flex h-screen bg-[#0a0a0a] text-white overflow-hidden">
+    <div className="flex h-screen bg-white text-gray-900 overflow-hidden font-sans">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-white/5 bg-[#050505] flex flex-col">
+      <aside className="w-64 border-r border-gray-100 bg-white flex flex-col">
         <div className="p-6 flex items-center gap-3">
-          <DotCube />
-          <span className="text-xl font-bold tracking-tight">MarketEcho</span>
+          <div className="scale-75 origin-left">
+            <DotCube />
+          </div>
+          <span className="text-xl font-bold tracking-tight text-gray-900">Marketecho</span>
         </div>
 
-        <nav className="flex-1 mt-4 px-3 space-y-1">
-          {sidebarItems.map((item) => (
+        <div className="px-4 py-2">
+          <button className="w-full bg-emerald-50 text-emerald-600 rounded-lg py-2 px-3 text-sm font-medium flex items-center gap-2">
+            <LayoutDashboard size={16} />
+            Overview
+          </button>
+        </div>
+
+        <nav className="flex-1 mt-2 px-3 space-y-1">
+          {sidebarItems.slice(1).map((item) => (
             <button
               key={item.name}
               onClick={() => setActiveTab(item.name)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                activeTab === item.name
-                  ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
-                  : "text-gray-400 hover:text-white hover:bg-white/5"
-              }`}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-all"
             >
               <item.icon size={18} />
               <span className="truncate">{item.name}</span>
             </button>
           ))}
         </nav>
-
-        <div className="p-4 border-t border-white/5">
-          <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition-colors">
-            <LogOut size={18} />
-            <span className="text-sm font-medium">Logout</span>
-          </button>
-        </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto bg-black p-8">
+      <main className="flex-1 overflow-y-auto bg-gray-50/50 p-8">
+        {/* Header */}
         <header className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight mb-2">
-              <TextScrambler text="Your Market Presence" />
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 mb-1">
+              Brand Dashboard
             </h1>
-            <p className="text-gray-400">
-              Measure visibility, compare competitors, and understand your true market presence across platforms.
+            <p className="text-sm text-gray-500">
+              Monitor your brand's digital echo in real-time.
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <button className="p-2 text-gray-400 hover:text-white transition-colors">
-              <Bell size={20} />
-            </button>
-            <div className="h-10 w-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-500 font-bold">
-              JD
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+              <input
+                type="text"
+                placeholder="Search brands..."
+                className="pl-9 pr-4 py-2 rounded-lg border border-gray-200 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+              />
             </div>
+            <button className="p-2 text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg bg-white">
+              <Bell size={18} />
+            </button>
+            <Link href="/login" className="bg-[#10b981] hover:bg-[#059669] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+              <Users size={16} />
+              Business Login
+            </Link>
           </div>
         </header>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {[
-            { label: "Total Mentions", value: "12.5k", trend: "+12%", icon: MessageSquare },
-            { label: "Sentiment Score", value: "84", trend: "+5%", icon: Activity },
-            { label: "Market Share", value: "24.2%", trend: "+2.4%", icon: TrendingUp },
-            { label: "Active Channels", value: "18", trend: "0%", icon: Users },
+            { label: "Total Mentions", value: "24.5k", trend: "+12.5%", isPositive: true },
+            { label: "Brand Sentiment", value: "82%", trend: "+4.2%", isPositive: true },
+            { label: "Market Share", value: "18.4%", trend: "-0.8%", isPositive: false },
+            { label: "Active Channels", value: "12", trend: "+2", isPositive: true },
           ].map((stat, i) => (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+            <div
               key={stat.label}
-              className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/5 hover:border-emerald-500/30 transition-colors group"
+              className="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm"
             >
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-black transition-colors">
-                  <stat.icon size={20} />
-                </div>
-                <span className="text-xs font-medium text-emerald-500">{stat.trend}</span>
+              <p className="text-sm font-medium text-gray-500 mb-4">{stat.label}</p>
+              <div className="flex items-end justify-between">
+                <h3 className="text-3xl font-bold text-gray-900">{stat.value}</h3>
+                <span className={`text-xs font-semibold px-2 py-1 rounded-md ${stat.isPositive ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}`}>
+                  {stat.isPositive ? '↗' : '↘'} {stat.trend}
+                </span>
               </div>
-              <p className="text-sm text-gray-500 mb-1">{stat.label}</p>
-              <h3 className="text-2xl font-bold">{stat.value}</h3>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 p-6 rounded-2xl bg-[#0d0d0d] border border-white/5">
+          <div className="lg:col-span-2 p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold">Visibility Trend</h3>
-              <div className="flex gap-2">
-                {["7d", "30d", "90d"].map((range) => (
-                  <button key={range} className="px-3 py-1 text-xs rounded-md bg-white/5 border border-white/10 hover:border-emerald-500/30">
+              <h3 className="text-lg font-bold text-gray-900">Visibility Trend</h3>
+              <div className="flex bg-gray-100 p-1 rounded-lg">
+                {["7D", "1M", "3M", "1Y"].map((range) => (
+                  <button
+                    key={range}
+                    className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${range === '1M' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-900'}`}
+                  >
                     {range}
                   </button>
                 ))}
               </div>
             </div>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={data}>
-                  <defs>
-                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" />
-                  <XAxis dataKey="name" stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#0d0d0d', border: '1px solid #ffffff10', borderRadius: '8px' }}
-                    itemStyle={{ color: '#10b981' }}
-                  />
-                  <Area type="monotone" dataKey="value" stroke="#10b981" fillOpacity={1} fill="url(#colorValue)" strokeWidth={2} />
-                </AreaChart>
-              </ResponsiveContainer>
+            <div className="h-[300px] w-full relative">
+              {/* Placeholder illustration for the chart based on screenshot */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-500 mb-3">
+                  <TrendingUp size={24} />
+                </div>
+                <p className="text-sm text-gray-400">Chart visualization will be rendered here...</p>
+              </div>
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0d0d0d] border border-white/5">
-            <h3 className="text-lg font-semibold mb-6">Market Share Distribution</h3>
-            <div className="space-y-6">
-              {[
-                { name: "Your Brand", share: 45, color: "bg-emerald-500" },
-                { name: "Competitor A", share: 25, color: "bg-blue-500" },
-                { name: "Competitor B", share: 20, color: "bg-purple-500" },
-                { name: "Others", share: 10, color: "bg-gray-500" },
-              ].map((item) => (
-                <div key={item.name}>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-400">{item.name}</span>
-                    <span className="font-medium">{item.share}%</span>
-                  </div>
-                  <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
-                    <motion.div 
-                      initial={{ width: 0 }}
-                      animate={{ width: `${item.share}%` }}
-                      className={`h-full ${item.color}`}
-                    />
-                  </div>
-                </div>
-              ))}
+          <div className="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+            <h3 className="text-lg font-bold text-gray-900 mb-6">Sentiment Analysis</h3>
+            <div className="h-[300px] w-full flex flex-col items-center justify-center text-center">
+              <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-500 mb-3">
+                <PieChart size={24} />
+              </div>
+              <p className="text-sm text-gray-400">Distribution chart will be rendered here...</p>
             </div>
           </div>
         </div>
