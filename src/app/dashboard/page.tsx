@@ -408,6 +408,138 @@ export default function Dashboard() {
               </div>
             </div>
           </motion.div>
+        ) : activeTab === "Market index score" ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="space-y-6"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900 mb-1">
+                  Market Index Score
+                </h1>
+                <p className="text-sm text-gray-500">
+                  How strong is this product's digital presence compared to competitors?
+                </p>
+              </div>
+              <div className="flex items-center bg-white border border-gray-200 rounded-lg p-1">
+                <button className="px-3 py-1.5 text-sm font-medium bg-blue-100 text-blue-700 rounded-md shadow-sm">Last 7 days</button>
+                <button className="px-3 py-1.5 text-sm font-medium text-gray-500 hover:text-gray-900">Last 30 days</button>
+              </div>
+            </div>
+
+            {/* Formula Card */}
+            <div className="bg-cyan-50 border border-cyan-200 p-4 rounded-2xl">
+              <p className="text-sm text-gray-700 font-medium mb-1">
+                Score = (Visibility) + (Engagement × Engagement × Breadth)
+              </p>
+              <p className="text-xs text-gray-500">
+                Combines multiple visibility signals into a single normalized score
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              {/* Left Side - Platform Info */}
+              <div className="lg:col-span-3 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Platform-Weighted Visibility</h3>
+
+                {/* Platform Tabs */}
+                <div className="flex items-center gap-2 mb-6 text-xs">
+                  <button className="flex items-center gap-1 px-2 py-1 bg-gray-100 rounded-md">
+                    <MessageSquare size={14} /> Reddit
+                  </button>
+                  <button className="flex items-center gap-1 px-2 py-1 text-gray-500">
+                    <Search size={14} /> YouTube
+                  </button>
+                  <button className="flex items-center gap-1 px-2 py-1 text-gray-500">
+                    <div className="w-3 h-2 bg-gray-600 rounded-sm" /> YouTube
+                  </button>
+                </div>
+
+                {/* Formula Description */}
+                <div className="text-sm space-y-2 text-gray-600">
+                  <p className="font-medium text-gray-900 mb-3">Visibility =</p>
+                  <p className="leading-relaxed">
+                    Product Mentions<br />
+                    Max Mentions in Category [0-1]
+                  </p>
+                  <p className="leading-relaxed mt-3">
+                    Brand Mentions / Max Engagement<br />
+                    Apps = Total Apps [0-1]
+                  </p>
+                  <p className="text-xs text-gray-400 mt-3">[0-1]</p>
+                </div>
+              </div>
+
+              {/* Center - Gauge Chart */}
+              <div className="lg:col-span-6 bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                <div className="flex items-center justify-center h-96 relative">
+                  {/* Semi-Donut Gauge using recharts */}
+                  <RechartsPieChart width={400} height={300}>
+                    <Pie
+                      data={[
+                        { name: "Score", value: 78, color: "#5EEAD4" },
+                        { name: "Remaining", value: 22, color: "#D1D5DB" }
+                      ]}
+                      cx={200}
+                      cy={180}
+                      startAngle={180}
+                      endAngle={0}
+                      innerRadius={100}
+                      outerRadius={140}
+                      paddingAngle={0}
+                      dataKey="value"
+                    >
+                      <Cell fill="#5EEAD4" />
+                      <Cell fill="#D1D5DB" />
+                    </Pie>
+                  </RechartsPieChart>
+
+                  {/* Center Score */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/4 text-center">
+                    <p className="text-7xl font-bold text-teal-500">78</p>
+                  </div>
+
+                  {/* Labels */}
+                  <div className="absolute bottom-16 left-12 text-sm text-gray-600 flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-gray-800" />
+                    <span>Low presence</span>
+                  </div>
+                  <div className="absolute bottom-16 right-12 text-sm text-gray-600 flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-gray-300" />
+                    <span>Medium presence</span>
+                  </div>
+                </div>
+
+                {/* Scale */}
+                <div className="flex justify-between text-xs text-gray-400 px-8 mt-4">
+                  <span>0</span>
+                  <span>50</span>
+                  <span>100</span>
+                </div>
+              </div>
+
+              {/* Right Side - Score Cards */}
+              <div className="lg:col-span-3 space-y-6">
+                {/* Your Score Card */}
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <p className="text-sm font-medium text-gray-500 mb-2">Your Score</p>
+                  <h2 className="text-6xl font-bold text-teal-500 mb-2">78</h2>
+                  <p className="text-sm text-emerald-600 font-medium">↗ +12 above average</p>
+                </div>
+
+                {/* Category Average Card */}
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                  <p className="text-sm font-medium text-gray-500 mb-2 flex items-center gap-2">
+                    <BarChart3 size={16} />
+                    Category Average
+                  </p>
+                  <h2 className="text-6xl font-bold text-gray-900">66</h2>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         ) : (
           <motion.div
             initial={{ opacity: 0 }}
