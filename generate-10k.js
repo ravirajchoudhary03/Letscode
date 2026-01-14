@@ -8,23 +8,68 @@ const path = require('path');
 const categories = ['fashion', 'sportswear', 'beauty', 'food', 'tech', 'home', 'accessories', 'jewelry', 'wellness', 'pets', 'footwear'];
 
 // Existing real brands (Keep these to ensure quality searches works)
-// (Copied from previous script mostly)
 const realBrands = [
-    // Fashion
-    { name: 'Zara', category: 'fashion' }, { name: 'H&M', category: 'fashion' }, { name: 'Calvin Klein', category: 'fashion' },
-    { name: 'Uniqlo', category: 'fashion' }, { name: 'Shein', category: 'fashion' }, { name: 'Everlane', category: 'fashion' },
-    { name: 'Warby Parker', category: 'fashion' }, { name: 'Allbirds', category: 'fashion' }, { name: 'Patagonia', category: 'fashion' },
-    { name: 'Nike', category: 'sportswear' }, { name: 'Adidas', category: 'sportswear' }, { name: 'Puma', category: 'sportswear' },
-    { name: 'Under Armour', category: 'sportswear' }, { name: 'Lululemon', category: 'sportswear' }, { name: 'Gymshark', category: 'sportswear' },
-    { name: 'Glossier', category: 'beauty' }, { name: 'Fenty Beauty', category: 'beauty' }, { name: 'Drunk Elephant', category: 'beauty' },
-    { name: 'The Ordinary', category: 'beauty' }, { name: 'Mamaearth', category: 'beauty' }, { name: 'Nykaa', category: 'beauty' },
-    { name: 'Sugar Cosmetics', category: 'beauty' }, { name: 'Apple', category: 'tech' }, { name: 'Samsung', category: 'tech' },
-    { name: 'OnePlus', category: 'tech' }, { name: 'Nothing', category: 'tech' }, { name: 'Boat', category: 'tech' },
-    { name: 'Noise', category: 'tech' }, { name: 'Licious', category: 'food' }, { name: 'Country Delight', category: 'food' },
-    { name: 'Blue Tokai', category: 'food' }, { name: 'Sleepy Owl', category: 'food' }, { name: 'Wakefit', category: 'home' },
-    { name: 'Sleepyhead', category: 'home' }, { name: 'Lenskart', category: 'eyewear' }, { name: 'Titan Eye+', category: 'eyewear' },
-    { name: 'FirstCry', category: 'kids' }, { name: 'Bewakoof', category: 'fashion' }, { name: 'The Souled Store', category: 'fashion' },
-    { name: 'Snitch', category: 'fashion' }, { name: 'Rare Rabbit', category: 'fashion' }
+    // --- TOP INDIAN D2C BRANDS ---
+    // Fashion & Apparel
+    { name: 'Bewakoof', category: 'fashion' }, { name: 'The Souled Store', category: 'fashion' },
+    { name: 'Snitch', category: 'fashion' }, { name: 'Rare Rabbit', category: 'fashion' },
+    { name: 'Zivame', category: 'fashion' }, { name: 'Clovia', category: 'fashion' },
+    { name: 'Urbanic', category: 'fashion' }, { name: 'BlissClub', category: 'fashion' },
+    { name: 'FableStreet', category: 'fashion' }, { name: 'Bombay Shirt Company', category: 'fashion' },
+    { name: 'Nykd by Nykaa', category: 'fashion' }, { name: 'DaMENSCH', category: 'fashion' },
+
+    // Beauty & Personal Care
+    { name: 'Mamaearth', category: 'beauty' }, { name: 'Sugar Cosmetics', category: 'beauty' },
+    { name: 'Wow Skin Science', category: 'beauty' }, { name: 'Minimalist', category: 'beauty' },
+    { name: 'Plum', category: 'beauty' }, { name: 'mCaffeine', category: 'beauty' },
+    { name: 'Dot & Key', category: 'beauty' }, { name: 'The Man Company', category: 'beauty' },
+    { name: 'Beardo', category: 'beauty' }, { name: 'Bombay Shaving Company', category: 'beauty' },
+    { name: 'Renee Cosmetics', category: 'beauty' }, { name: 'Pilgrim', category: 'beauty' },
+    { name: 'Foxtale', category: 'beauty' }, { name: 'Aqualogica', category: 'beauty' },
+    { name: 'Dr. Sheth\'s', category: 'beauty' }, { name: 'LoveChild by Masaba', category: 'beauty' },
+
+    // Electronics & Tech
+    { name: 'boAt', category: 'tech' }, { name: 'Noise', category: 'tech' },
+    { name: 'Fire-Boltt', category: 'tech' }, { name: 'Mivi', category: 'tech' },
+    { name: 'Boult Audio', category: 'tech' }, { name: 'Hammer', category: 'tech' },
+
+    // Food & Beverage
+    { name: 'Licious', category: 'food' }, { name: 'Country Delight', category: 'food' },
+    { name: 'Blue Tokai', category: 'food' }, { name: 'Sleepy Owl', category: 'food' },
+    { name: 'The Whole Truth', category: 'food' }, { name: 'Yoga Bar', category: 'food' },
+    { name: 'Open Secret', category: 'food' }, { name: 'Happilo', category: 'food' },
+    { name: 'iD Fresh Food', category: 'food' }, { name: 'Vahdam Teas', category: 'food' },
+    { name: 'Slurrp Farm', category: 'food' }, { name: 'Kapiva', category: 'food' },
+
+    // Home & Lifestyle
+    { name: 'Wakefit', category: 'home' }, { name: 'Sleepyhead', category: 'home' },
+    { name: 'The Sleep Company', category: 'home' }, { name: 'Pepperfry', category: 'home' },
+    { name: 'WoodenStreet', category: 'home' }, { name: 'Vaaree', category: 'home' },
+    { name: 'Chumbak', category: 'home' }, { name: 'Nestasia', category: 'home' },
+
+    // Eyewear
+    { name: 'Lenskart', category: 'eyewear' }, { name: 'John Jacobs', category: 'eyewear' },
+    { name: 'Coolwinks', category: 'eyewear' },
+
+    // Footwear
+    { name: 'Neeman\'s', category: 'footwear' }, { name: 'Campus', category: 'footwear' },
+    { name: 'Asian Footwears', category: 'footwear' }, { name: 'Yoho', category: 'footwear' },
+
+    // Luggage & Bags
+    { name: 'Mokobara', category: 'accessories' }, { name: 'Safari', category: 'accessories' },
+    { name: 'Skybags', category: 'accessories' }, { name: 'DailyObjects', category: 'accessories' },
+    { name: 'Zouk', category: 'accessories' },
+
+    // Jewelry
+    { name: 'Giva', category: 'jewelry' }, { name: 'Melorra', category: 'jewelry' },
+    { name: 'Kushal\'s', category: 'jewelry' }, { name: 'CaratLane', category: 'jewelry' },
+    { name: 'BlueStone', category: 'jewelry' },
+
+    // Global Giants
+    { name: 'Zara', category: 'fashion' }, { name: 'H&M', category: 'fashion' },
+    { name: 'Uniqlo', category: 'fashion' }, { name: 'Nike', category: 'sportswear' },
+    { name: 'Adidas', category: 'sportswear' }, { name: 'Apple', category: 'tech' },
+    { name: 'Samsung', category: 'tech' }, { name: 'IKEA', category: 'home' }
 ];
 
 // Name Generators
