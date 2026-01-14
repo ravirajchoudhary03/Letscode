@@ -112,6 +112,16 @@ export default function Dashboard() {
     return [...brandData, ...competitorData];
   };
 
+  // Generate dynamic platform data for bar chart
+  const getPlatformChartData = () => {
+    if (!selectedBrand?.platformDistribution) return platformData;
+    return [
+      { name: "Reddit", value: selectedBrand.platformDistribution.reddit, color: "#7DD3FC" },
+      { name: "Google Search", value: selectedBrand.platformDistribution.googleSearch, color: "#93C5FD" },
+      { name: "YouTube", value: selectedBrand.platformDistribution.youtube, color: "#60A5FA" }
+    ];
+  };
+
   return (
     <div className="flex h-screen bg-white text-gray-900 overflow-hidden font-sans">
       {/* Sidebar */}
@@ -290,7 +300,7 @@ export default function Dashboard() {
             <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
               <h3 className="text-lg font-bold text-gray-900 mb-6">Mention Counts by Platform</h3>
               <div className="space-y-8">
-                {platformData.map((item, index) => (
+                {getPlatformChartData().map((item, index) => (
                   <div key={item.name} className="relative">
                     <div className="flex items-center mb-2">
                       <div className="w-40 flex items-center gap-2 text-gray-600 font-medium">
@@ -653,7 +663,7 @@ export default function Dashboard() {
 
                   {/* Competitor 1 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.platformVisibility?.normalizedScores?.competitor1 || 60}</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[0]?.name || 'Comp 1'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -677,7 +687,7 @@ export default function Dashboard() {
 
                   {/* Competitor 2 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[0]?.name || 'H&M'}</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[1]?.name || 'Comp 2'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -701,7 +711,7 @@ export default function Dashboard() {
 
                   {/* Competitor 3 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 || 45}</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[2]?.name || 'Comp 3'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
