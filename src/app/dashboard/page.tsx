@@ -66,67 +66,68 @@ export default function Dashboard() {
     setLoading(true);
     setLoadingStep("Initiating market scan...");
 
+    let finalData: any = null;
+
     try {
       // 1. Fetch data first (background)
       const response = await fetch(`/api/brands?name=${encodeURIComponent(brandSearch)}`);
 
-      let finalData;
       if (response.ok) {
         finalData = await response.json();
-      } else {
-        // Zero-data state for unknown brands (simulated as found but empty)
-        finalData = {
-          name: brandSearch,
-          totalMentions: 0,
-          mentionGrowth: 0,
-          topPlatform: { name: "N/A", mentions: 0 },
-          platformDistribution: { reddit: 0, googleSearch: 0, youtube: 0 },
-          shareOfVoice: {
-            score: 0,
-            mentions: 0,
-            growth: 0,
-            competitors: [
-              { name: "N/A", score: 0, mentions: 0 },
-              { name: "N/A", score: 0, mentions: 0 },
-              { name: "N/A", score: 0, mentions: 0 }
-            ]
-          },
-          marketIndexScore: { score: 0, categoryAverage: 0, trend: "0", visibility: 0, engagement: 0, breadth: 0 },
-          platformVisibility: {
-            normalizedScores: { brand: 0, competitor1: 0, competitor2: 0, competitor3: 0 },
-            strongestPlatform: { name: "N/A", score: 0 },
-            competitorLeadPlatform: { name: "N/A", competitor: "N/A", score: 0 }
-          }
-        };
       }
-      const data = finalData;
-
-      // 2. Simulate realistic scraping delays if data found
-      await new Promise(resolve => setTimeout(resolve, 800));
-      setLoadingStep(`Accessing public APIs for ${data.name}...`);
-
-      await new Promise(resolve => setTimeout(resolve, 1200));
-      setLoadingStep("Scraping mentions from Reddit & YouTube...");
-
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setLoadingStep("Analyzing sentiment patterns...");
-
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setLoadingStep("Aggregating Share of Voice data...");
-
-      await new Promise(resolve => setTimeout(resolve, 800));
-
-      // 3. Show Result
-      setSelectedBrand(data);
-      setActiveTab("Product mention frequency");
-
     } catch (error) {
       console.error('Error fetching brand data:', error);
-      alert('Error searching for brand');
-    } finally {
-      setLoading(false);
-      setLoadingStep("");
     }
+
+    // If no data found or error, use Zero Data
+    if (!finalData) {
+      finalData = {
+        name: brandSearch,
+        totalMentions: 0,
+        mentionGrowth: 0,
+        topPlatform: { name: "N/A", mentions: 0 },
+        platformDistribution: { reddit: 0, googleSearch: 0, youtube: 0 },
+        shareOfVoice: {
+          score: 0,
+          mentions: 0,
+          growth: 0,
+          competitors: [
+            { name: "N/A", score: 0, mentions: 0 },
+            { name: "N/A", score: 0, mentions: 0 },
+            { name: "N/A", score: 0, mentions: 0 }
+          ]
+        },
+        marketIndexScore: { score: 0, categoryAverage: 0, trend: "0", visibility: 0, engagement: 0, breadth: 0 },
+        platformVisibility: {
+          normalizedScores: { brand: 0, competitor1: 0, competitor2: 0, competitor3: 0 },
+          strongestPlatform: { name: "N/A", score: 0 },
+          competitorLeadPlatform: { name: "N/A", competitor: "N/A", score: 0 }
+        }
+      };
+    }
+
+    // 2. Simulate realistic scraping delays (Guaranteed to run)
+    const displayBrandName = finalData.name || brandSearch;
+
+    await new Promise(resolve => setTimeout(resolve, 800));
+    setLoadingStep(`Accessing public APIs for ${displayBrandName}...`);
+
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    setLoadingStep("Scraping mentions from Reddit & YouTube...");
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setLoadingStep("Analyzing sentiment patterns...");
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setLoadingStep("Aggregating Share of Voice data...");
+
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    // 3. Show Result
+    setSelectedBrand(finalData);
+    setActiveTab("Product mention frequency");
+    setLoading(false);
+    setLoadingStep("");
   };
 
   const sidebarItems = [
