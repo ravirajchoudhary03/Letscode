@@ -5,7 +5,7 @@ const d2cBrands = {
     fashion: ['Zara', 'H&M', 'Calvin Klein', 'Uniqlo', 'Shein', 'Everlane', 'Warby Parker', 'Allbirds', 'Patagonia', 'Reformation', 'Outdoor Voices', 'Bonobos', 'Stitch Fix', 'ThredUp', 'Rent the Runway', 'Fashion Nova', 'Asos', 'Boohoo', 'Missguided', 'PrettyLittleThing'],
     sportswear: ['Nike', 'Adidas', 'Puma', 'Under Armour', 'Reebok', 'New Balance', 'Lululemon', 'Gymshark', 'Fabletics', 'Rhone', 'Vuori', 'Athleta', 'Sweaty Betty', 'Alo Yoga', 'Beyond Yoga'],
     beauty: ['Glossier', 'Fenty Beauty', 'Kylie Cosmetics', 'Drunk Elephant', 'The Ordinary', 'Tatcha', 'Glow Recipe', 'Milk Makeup', 'Herbivore', 'Youth To The People', 'Beautycounter', 'Function of Beauty', 'Curology', 'Hims', 'Hers'],
-    food: ['HelloFresh', 'Blue Apron', 'Daily Harvest', 'Thrive Market', 'Perfect Bar', 'Kind Snacks', 'RXBAR', 'Magic Spoon', 'Liquid Death', 'Athletic Greens', 'Four Sigmatic', 'Omsom', "Mom's Spaghetti"],
+    food: ['HelloFresh', 'Blue Apron', 'Daily Harvest', 'Thrive Market', 'Perfect Bar', 'Kind Snacks', 'RXBAR', 'Magic Spoon', 'Liquid Death', 'Athletic Greens', 'Four Sigmatic', 'Omsom'],
     tech: ['Apple', 'Samsung', 'OnePlus', 'Nothing', 'Anker', 'Nomad', 'Peak Design', 'Twelve South', 'Moft', 'Bellroy'],
     home: ['Casper', 'Purple', 'Brooklinen', 'Parachute', 'Tuft & Needle', 'Burrow', 'Floyd', 'Article', 'Wayfair', 'Ruggable', 'Our Place', 'Great Jones', 'Caraway'],
     accessories: ['Away', 'Raden', 'Nomatic', 'Bellroy', 'Ridge Wallet', 'Secrid', 'Herschel', 'Fjallraven', 'Tumi'],
@@ -14,18 +14,38 @@ const d2cBrands = {
     pets: ['Chewy', 'BarkBox', 'The Farmer\'s Dog', 'Ollie', 'Nom Nom', 'Wild Earth'],
 };
 
+// Top 100 Indian D2C Brands
+const indianD2CBrands = {
+    fashion: ['Bewakoof', 'The Souled Store', 'Snitch', 'Rare Rabbit', 'Clovia', 'Zivame', 'Urbanic', 'Virgio', 'Chumbak', 'FabAlley', 'Janasya', 'Sassafras', 'Cottonworld', 'W for Woman', 'Libas', 'Biba', 'House of Pataudi', 'Taavi', 'The Loom', 'Bombay Shirt Company'],
+    beauty: ['Mamaearth', 'Wow Skin Science', 'mCaffeine', 'Plum', 'Dot & Key', 'Minimalist', 'Pilgrim', 'Juicy Chemistry', 'The Man Company', 'Beardo', 'Sugar Cosmetics', 'MyGlamm', 'Nykaa', 'Purplle', 'Carmesi', 'Pee Safe', 'Bombay Shaving Company', 'The Moms Co', 'Ayuga', 'Dr Sheth'],
+    food: ['Licious', 'Country Delight', 'Epigamia', 'Sleepy Owl', 'Blue Tokai', 'Vahdam Teas', 'Yoga Bar', 'Slurrp Farm', 'Oziva', 'HealthKart', 'Wellversed', 'Kapiva', 'True Elements', 'Nutribowl', 'Pintola', 'Farmley', 'Pro Nature', 'Raw Pressery', 'Paper Boat'],
+    footwear: ['Campus', 'FREAKINS', 'Neeman\'s', 'Solethreads', 'Monrow', 'Trase', 'The Pant Project', 'Shoe Tonic'],
+    wellness: ['HealthifyMe', 'Cure.fit', 'Mosaic Wellness', 'Man Matters', 'Be Bodywise', 'Traya Health', 'The Whole Truth Foods', 'Wellbeing Nutrition'],
+    jewelry: ['Giva', 'Melorra', 'Ornaz', 'Quirksmith', 'Amama', 'Pipa Bella', 'Tarinika', 'Outhouse'],
+    home: ['Wakefit', 'The Sleep Company', 'Sleepyhead', 'Pepperfry', 'HomeLane', 'Livspace', 'UrbanLadder', 'FabFurnish', 'Furrn', 'Furlenco'],
+    eyewear: ['Lenskart', 'Coolwinks', 'Specsmakers', 'John Jacobs', 'Titan Eye+'],
+    personal_care: ['The Body Cupboard', 'Bare Anatomy', 'Chemist at Play', 'Fix My Curls', 'Earth Rhythm', 'Ustraa', 'Bella Vita Organic'],
+    kids: ['FirstCry', 'Hopscotch', 'Cub McPaws', 'SuperBottoms', 'Buddsbuddy', 'Catamaran Kids'],
+    bags: ['Caprese', 'Baggit', 'Lavie', 'Ьeige', 'Da Milano', 'Hidesign']
+};
+
 // Competitor pools by category
 const competitorPools = {
-    fashion: ['Zara', 'H&M', 'Uniqlo', 'Gap', 'Forever 21', 'Urban Outfitters'],
+    fashion: ['Zara', 'H&M', 'Uniqlo', 'Bewakoof', 'The Souled Store', 'Snitch'],
     sportswear: ['Nike', 'Adidas', 'Puma', 'Under Armour', 'Reebok', 'New Balance'],
-    beauty: ['Glossier', 'Fenty Beauty', 'Sephora Collection', 'MAC', 'NARS'],
-    food: ['HelloFresh', 'Blue Apron', 'Factor', 'Green Chef'],
-    tech: ['Apple', 'Samsung', 'Google', 'Microsoft', 'Sony'],
-    home: ['Casper', 'Purple', 'Sleep Number', 'Tempur-Pedic'],
+    beauty: ['Glossier', 'Fenty Beauty', 'Mamaearth', 'Nykaa', 'Sugar Cosmetics', 'MyGlamm'],
+    food: ['HelloFresh', 'Blue Apron', 'Licious', 'Country Delight', 'Epigamia'],
+    tech: ['Apple', 'Samsung', 'OnePlus', 'Nothing', 'Google', 'Microsoft'],
+    home: ['Casper', 'Purple', 'Wakefit', 'The Sleep Company', 'UrbanLadder'],
     accessories: ['Away', 'Samsonite', 'Travelpro', 'Rimowa'],
-    jewelry: ['Mejuri', 'Catbird', 'Tiffany & Co', 'Pandora'],
-    wellness: ['Peloton', 'NordicTrack', 'Bowflex', 'Echelon'],
-    pets: ['Chewy', 'BarkBox', 'Petco', 'PetSmart']
+    jewelry: ['Mejuri', 'Catbird', 'Giva', 'Melorra', 'Pandora'],
+    wellness: ['Peloton', 'NordicTrack', 'Cure.fit', 'HealthifyMe'],
+    pets: ['Chewy', 'BarkBox', 'Petco', 'PetSmart'],
+    footwear: ['Nike', 'Adidas', 'Campus', 'Neeman\'s', 'FREAKINS'],
+    eyewear: ['Lenskart', 'Warby Parker', 'Coolwinks', 'John Jacobs'],
+    personal_care: ['Mamaearth', 'The Body Shop', 'Plum', 'Beardo'],
+    kids: ['FirstCry', 'Hopscotch', 'Carter\'s', 'Mothercare'],
+    bags: ['Caprese', 'Baggit', 'Lavie', 'Da Milano']
 };
 
 // Helper functions
@@ -130,6 +150,7 @@ function generateBrandData(brandName, category) {
 const allBrands = {};
 let brandCount = 0;
 
+// Add global brands
 for (const [category, brands] of Object.entries(d2cBrands)) {
     for (const brand of brands) {
         const key = brand.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -138,21 +159,13 @@ for (const [category, brands] of Object.entries(d2cBrands)) {
     }
 }
 
-// Add more generic brands to reach 1000
-const additionalBrands = [
-    // More fashion brands
-    'Madewell', 'J.Crew', 'Anthropologie', 'Free People', 'Levi\'s', 'Wrangler', 'Lee', 'Lucky Brand', 'True Religion', '7 For All Mankind',
-    // More sportswear
-    'Champion', 'Asics', 'Saucony', 'Brooks', 'Hoka', 'On Running', 'Salomon', 'Arc\'teryx', 'The North Face', 'Columbia',
-    // Add many more...
-];
-
-for (let i = brandCount; i < 150; i++) {
-    const brandName = additionalBrands[i - brandCount] || `Brand ${i + 1}`;
-    const categories = Object.keys(d2cBrands);
-    const randomCategory = categories[getRandomInt(0, categories.length - 1)];
-    const key = brandName.toLowerCase().replace(/[^a-z0-9]/g, '');
-    allBrands[key] = generateBrandData(brandName, randomCategory);
+// Add Indian D2C brands
+for (const [category, brands] of Object.entries(indianD2CBrands)) {
+    for (const brand of brands) {
+        const key = brand.toLowerCase().replace(/[^a-z0-9]/g, '');
+        allBrands[key] = generateBrandData(brand, category);
+        brandCount++;
+    }
 }
 
 const output = {
@@ -162,3 +175,5 @@ const output = {
 // Write to file
 fs.writeFileSync('brands-generated.json', JSON.stringify(output, null, 2));
 console.log(`Generated data for ${Object.keys(allBrands).length} brands!`);
+console.log(`- Global brands: ${Object.values(d2cBrands).flat().length}`);
+console.log(`- Indian D2C brands: ${Object.values(indianD2CBrands).flat().length}`);
