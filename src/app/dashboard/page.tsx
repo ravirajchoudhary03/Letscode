@@ -633,27 +633,27 @@ export default function Dashboard() {
 
                 {/* Custom Grouped Bar Chart */}
                 <div className="space-y-6">
-                  {/* Zara - 75 */}
+                  {/* Brand Score */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">Zara</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.name || 'Zara'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{ width: "75%" }}
+                          animate={{ width: `${selectedBrand?.platformVisibility?.normalizedScores?.brand || 75}%` }}
                           transition={{ duration: 1 }}
                           className="bg-teal-500 h-full flex items-center justify-end pr-2"
                         >
-                          <span className="text-white font-bold text-sm">75</span>
+                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.brand || 75}</span>
                         </motion.div>
                       </div>
                     </div>
-                    <div className="w-16 text-gray-600 text-sm">45</div>
+                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor2 || 45}</div>
                   </div>
 
-                  {/* Brand 2 - 60 */}
+                  {/* Competitor 1 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">60</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.platformVisibility?.normalizedScores?.competitor1 || 60}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -668,16 +668,16 @@ export default function Dashboard() {
                           transition={{ duration: 1, delay: 0.1 }}
                           className="bg-gray-400 h-full flex items-center justify-end pr-2"
                         >
-                          <span className="text-white font-bold text-sm">60</span>
+                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor1 || 60}</span>
                         </motion.div>
                       </div>
                     </div>
-                    <div className="w-16 text-gray-600 text-sm">60</div>
+                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor1 || 60}</div>
                   </div>
 
-                  {/* H&M - Lower Score */}
+                  {/* Competitor 2 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">H&M</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[0]?.name || 'H&M'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -692,16 +692,16 @@ export default function Dashboard() {
                           transition={{ duration: 1, delay: 0.2 }}
                           className="bg-gray-400 h-full flex items-center justify-end pr-2"
                         >
-                          <span className="text-white font-bold text-sm">45</span>
+                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor2 || 45}</span>
                         </motion.div>
                       </div>
                     </div>
-                    <div className="w-16 text-gray-600 text-sm">45</div>
+                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor2 || 45}</div>
                   </div>
 
-                  {/* Brand 4 - 45 */}
+                  {/* Competitor 3 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">45</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 || 45}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -716,7 +716,7 @@ export default function Dashboard() {
                           transition={{ duration: 1, delay: 0.3 }}
                           className="bg-gray-400 h-full flex items-center justify-end pr-2"
                         >
-                          <span className="text-white font-bold text-sm">40</span>
+                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 || 40}</span>
                         </motion.div>
                       </div>
                     </div>
@@ -733,7 +733,7 @@ export default function Dashboard() {
                     <p className="text-sm font-medium text-gray-700">Google Search</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm font-medium text-gray-700">Adidas</p>
+                    <p className="text-sm font-medium text-gray-700">YouTube</p>
                   </div>
                 </div>
                 <p className="text-center text-sm text-gray-500 mt-2">Platform</p>
