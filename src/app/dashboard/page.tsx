@@ -539,6 +539,164 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+
+            {/* Platform Visibility Section - Below Market Index Score */}
+            <div className="mt-12 bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2">Platform Visibility</h2>
+                  <p className="text-gray-600">
+                    Compares product visibility across platforms and benchmarks it against competitors
+                  </p>
+                </div>
+                <div className="flex items-center bg-white border border-gray-200 rounded-lg p-1">
+                  <button className="px-3 py-1.5 text-sm font-medium bg-blue-100 text-blue-700 rounded-md shadow-sm">Last 7 days</button>
+                  <button className="px-3 py-1.5 text-sm font-medium text-gray-500 hover:text-gray-900">Last 30 days</button>
+                </div>
+              </div>
+
+              {/* Platform Source Note */}
+              <div className="bg-cyan-50 border border-cyan-200 p-3 rounded-xl flex items-center gap-3 mb-8">
+                <div className="flex items-center gap-2 text-sm text-gray-700">
+                  <MessageSquare size={18} className="text-cyan-600" />
+                  <span>Derived from public online mentions and engagement signals</span>
+                  <Search size={18} className="text-cyan-600 ml-2" />
+                  <div className="w-4 h-3 bg-cyan-600 rounded-sm ml-2" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Bar Chart Section */}
+                <div className="lg:col-span-2">
+                  <h3 className="text-lg font-bold text-gray-900 mb-6">Normalized Visibility Score (0-100)</h3>
+
+                  {/* Custom Grouped Bar Chart */}
+                  <div className="space-y-6">
+                    {/* Zara - 75 */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 text-right font-bold text-gray-700">Zara</div>
+                      <div className="flex-1 flex items-center gap-1">
+                        <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "75%" }}
+                            transition={{ duration: 1 }}
+                            className="bg-teal-500 h-full flex items-center justify-end pr-2"
+                          >
+                            <span className="text-white font-bold text-sm">75</span>
+                          </motion.div>
+                        </div>
+                      </div>
+                      <div className="w-16 text-gray-600 text-sm">45</div>
+                    </div>
+
+                    {/* Brand 2 - 60 */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 text-right font-bold text-gray-700">60</div>
+                      <div className="flex-1 flex items-center gap-1">
+                        <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "50%" }}
+                            transition={{ duration: 1, delay: 0.1 }}
+                            className="bg-teal-500 h-full"
+                          />
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "50%" }}
+                            transition={{ duration: 1, delay: 0.1 }}
+                            className="bg-gray-400 h-full flex items-center justify-end pr-2"
+                          >
+                            <span className="text-white font-bold text-sm">60</span>
+                          </motion.div>
+                        </div>
+                      </div>
+                      <div className="w-16 text-gray-600 text-sm">60</div>
+                    </div>
+
+                    {/* H&M - Lower Score */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 text-right font-bold text-gray-700">H&M</div>
+                      <div className="flex-1 flex items-center gap-1">
+                        <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "15%" }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                            className="bg-teal-500 h-full"
+                          />
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "85%" }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                            className="bg-gray-400 h-full flex items-center justify-end pr-2"
+                          >
+                            <span className="text-white font-bold text-sm">45</span>
+                          </motion.div>
+                        </div>
+                      </div>
+                      <div className="w-16 text-gray-600 text-sm">45</div>
+                    </div>
+
+                    {/* Brand 4 - 45 */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 text-right font-bold text-gray-700">45</div>
+                      <div className="flex-1 flex items-center gap-1">
+                        <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "20%" }}
+                            transition={{ duration: 1, delay: 0.3 }}
+                            className="bg-teal-500 h-full"
+                          />
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "50%" }}
+                            transition={{ duration: 1, delay: 0.3 }}
+                            className="bg-gray-400 h-full flex items-center justify-end pr-2"
+                          >
+                            <span className="text-white font-bold text-sm">40</span>
+                          </motion.div>
+                        </div>
+                      </div>
+                      <div className="w-16"></div>
+                    </div>
+                  </div>
+
+                  {/* Platform Labels */}
+                  <div className="flex justify-around mt-6 pt-4 border-t border-gray-200">
+                    <div className="text-center">
+                      <p className="text-sm font-medium text-gray-700">Reddit</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm font-medium text-gray-700">Google Search</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm font-medium text-gray-700">Adidas</p>
+                    </div>
+                  </div>
+                  <p className="text-center text-sm text-gray-500 mt-2">Platform</p>
+                </div>
+
+                {/* Right Side Cards */}
+                <div className="space-y-6">
+                  {/* Strongest Platform Card */}
+                  <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <h3 className="text-sm font-medium text-gray-500 mb-3">Strongest Platform<br />for Zara</h3>
+                    <h2 className="text-3xl font-bold text-teal-600 mb-2">Reddit</h2>
+                    <p className="text-sm text-gray-600">Your score is 75</p>
+                  </div>
+
+                  {/* Competitor Lead Platform Card */}
+                  <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <h3 className="text-sm font-medium text-gray-500 mb-3">Platform Where<br />Competitors Lead</h3>
+                    <h2 className="text-3xl font-bold text-gray-600 mb-2">Google Search</h2>
+                    <p className="text-sm text-gray-600">H&M leads with 68</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </motion.div>
         ) : (
           <motion.div
