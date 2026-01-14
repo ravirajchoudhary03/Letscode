@@ -81,7 +81,16 @@ export default function Dashboard() {
           mentionGrowth: 0,
           topPlatform: { name: "N/A", mentions: 0 },
           platformDistribution: { reddit: 0, googleSearch: 0, youtube: 0 },
-          shareOfVoice: { score: 0, mentions: 0, growth: 0, competitors: [] },
+          shareOfVoice: {
+            score: 0,
+            mentions: 0,
+            growth: 0,
+            competitors: [
+              { name: "N/A", score: 0, mentions: 0 },
+              { name: "N/A", score: 0, mentions: 0 },
+              { name: "N/A", score: 0, mentions: 0 }
+            ]
+          },
           marketIndexScore: { score: 0, categoryAverage: 0, trend: "0", visibility: 0, engagement: 0, breadth: 0 },
           platformVisibility: {
             normalizedScores: { brand: 0, competitor1: 0, competitor2: 0, competitor3: 0 },
@@ -355,8 +364,8 @@ export default function Dashboard() {
               <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                 <p className="text-sm font-medium text-gray-500 mb-2">Total Mentions</p>
                 <div className="flex items-baseline gap-3">
-                  <h2 className="text-4xl font-bold text-gray-900">{selectedBrand?.totalMentions?.toLocaleString() || '14,520'}</h2>
-                  <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">↗ +{selectedBrand?.mentionGrowth || 12}%</span>
+                  <h2 className="text-4xl font-bold text-gray-900">{selectedBrand?.totalMentions?.toLocaleString() ?? '14,520'}</h2>
+                  <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">↗ +{selectedBrand?.mentionGrowth ?? 12}%</span>
                 </div>
                 <p className="text-xs text-gray-400 mt-1">Across all platforms</p>
               </div>
@@ -365,10 +374,10 @@ export default function Dashboard() {
               <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                 <p className="text-sm font-medium text-gray-500 mb-2">Top Contributing Platform</p>
                 <div className="flex items-center gap-2 mb-1">
-                  <h2 className="text-4xl font-bold text-sky-800">{selectedBrand?.topPlatform?.name || 'Reddit'}</h2>
+                  <h2 className="text-4xl font-bold text-sky-800">{selectedBrand?.topPlatform?.name ?? 'Reddit'}</h2>
                   <span className="text-sky-600"><MessageSquare size={28} /></span>
                 </div>
-                <p className="text-xs text-gray-400">{selectedBrand?.topPlatform?.mentions?.toLocaleString() || '6,200'} mentions</p>
+                <p className="text-xs text-gray-400">{selectedBrand?.topPlatform?.mentions?.toLocaleString() ?? '6,200'} mentions</p>
               </div>
             </div>
 
@@ -509,8 +518,8 @@ export default function Dashboard() {
                   </RechartsPieChart>
                   {/* Center Text */}
                   <div className="absolute flex flex-col items-center justify-center">
-                    <p className="text-5xl font-bold text-gray-900">{selectedBrand?.shareOfVoice?.score || 45}%</p>
-                    <p className="text-sm text-gray-500 mt-1">{selectedBrand?.name || 'Zara'} SOV</p>
+                    <p className="text-5xl font-bold text-gray-900">{selectedBrand?.shareOfVoice?.score ?? 45}%</p>
+                    <p className="text-sm text-gray-500 mt-1">{selectedBrand?.name ?? 'Zara'} SOV</p>
                   </div>
                 </div>
 
@@ -533,8 +542,8 @@ export default function Dashboard() {
                     <TrendingUp size={16} />
                     Your Brand's SOV (%)
                   </p>
-                  <h2 className="text-5xl font-bold text-gray-900 mb-2">{selectedBrand?.shareOfVoice?.score || 45}%</h2>
-                  <p className="text-sm text-emerald-600 font-medium">↗ +{selectedBrand?.shareOfVoice?.growth || 8}% from last week</p>
+                  <h2 className="text-5xl font-bold text-gray-900 mb-2">{selectedBrand?.shareOfVoice?.score ?? 45}%</h2>
+                  <p className="text-sm text-emerald-600 font-medium">↗ +{selectedBrand?.shareOfVoice?.growth ?? 8}% from last week</p>
                 </div>
 
                 {/* Top Competitor Card */}
@@ -543,9 +552,9 @@ export default function Dashboard() {
                     <Users size={16} />
                     Top Competitor by SOV
                   </p>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-2">{selectedBrand?.shareOfVoice?.competitors?.[0]?.name || 'H&M'}</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2">{selectedBrand?.shareOfVoice?.competitors?.[0]?.name ?? 'H&M'}</h2>
                   <p className="text-sm text-gray-500 flex items-center gap-1">
-                    {selectedBrand?.shareOfVoice?.competitors?.[0]?.score || 30}% <span className="text-gray-400">━ No change</span>
+                    {selectedBrand?.shareOfVoice?.competitors?.[0]?.score ?? 30}% <span className="text-gray-400">━ No change</span>
                   </p>
                 </div>
               </div>
@@ -641,7 +650,7 @@ export default function Dashboard() {
 
                   {/* Center Score */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/4 text-center">
-                    <p className="text-7xl font-bold text-teal-500">{selectedBrand?.marketIndexScore?.score || 78}</p>
+                    <p className="text-7xl font-bold text-teal-500">{selectedBrand?.marketIndexScore?.score ?? 78}</p>
                   </div>
 
                   {/* Labels */}
@@ -668,8 +677,8 @@ export default function Dashboard() {
                 {/* Your Score Card */}
                 <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                   <p className="text-sm font-medium text-gray-500 mb-2">Your Score</p>
-                  <h2 className="text-6xl font-bold text-teal-500 mb-2">{selectedBrand?.marketIndexScore?.score || 78}</h2>
-                  <p className="text-sm text-emerald-600 font-medium">↗ {selectedBrand?.marketIndexScore?.trend || '+12'} above average</p>
+                  <h2 className="text-6xl font-bold text-teal-500 mb-2">{selectedBrand?.marketIndexScore?.score ?? 78}</h2>
+                  <p className="text-sm text-emerald-600 font-medium">↗ {selectedBrand?.marketIndexScore?.trend ?? '+12'} above average</p>
                 </div>
 
                 {/* Category Average Card */}
@@ -678,7 +687,7 @@ export default function Dashboard() {
                     <BarChart3 size={16} />
                     Category Average
                   </p>
-                  <h2 className="text-6xl font-bold text-gray-900">{selectedBrand?.marketIndexScore?.categoryAverage || 66}</h2>
+                  <h2 className="text-6xl font-bold text-gray-900">{selectedBrand?.marketIndexScore?.categoryAverage ?? 66}</h2>
                 </div>
               </div>
             </div>
@@ -721,25 +730,25 @@ export default function Dashboard() {
                 <div className="space-y-6">
                   {/* Brand Score */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.name || 'Zara'}</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.name ?? 'Zara'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{ width: `${selectedBrand?.platformVisibility?.normalizedScores?.brand || 75}%` }}
+                          animate={{ width: `${selectedBrand?.platformVisibility?.normalizedScores?.brand ?? 75}%` }}
                           transition={{ duration: 1 }}
                           className="bg-teal-500 h-full flex items-center justify-end pr-2"
                         >
-                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.brand || 75}</span>
+                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.brand ?? 75}</span>
                         </motion.div>
                       </div>
                     </div>
-                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor2 || 45}</div>
+                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.brand ?? 75}</div>
                   </div>
 
                   {/* Competitor 1 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[0]?.name || 'Comp 1'}</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[0]?.name ?? 'Comp 1'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -754,16 +763,16 @@ export default function Dashboard() {
                           transition={{ duration: 1, delay: 0.1 }}
                           className="bg-gray-400 h-full flex items-center justify-end pr-2"
                         >
-                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor1 || 60}</span>
+                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor1 ?? 60}</span>
                         </motion.div>
                       </div>
                     </div>
-                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor1 || 60}</div>
+                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor1 ?? 60}</div>
                   </div>
 
                   {/* Competitor 2 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[1]?.name || 'Comp 2'}</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[1]?.name ?? 'Comp 2'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -778,16 +787,16 @@ export default function Dashboard() {
                           transition={{ duration: 1, delay: 0.2 }}
                           className="bg-gray-400 h-full flex items-center justify-end pr-2"
                         >
-                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor2 || 45}</span>
+                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor2 ?? 45}</span>
                         </motion.div>
                       </div>
                     </div>
-                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor2 || 45}</div>
+                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor2 ?? 45}</div>
                   </div>
 
                   {/* Competitor 3 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[2]?.name || 'Comp 3'}</div>
+                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[2]?.name ?? 'Comp 3'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -802,11 +811,11 @@ export default function Dashboard() {
                           transition={{ duration: 1, delay: 0.3 }}
                           className="bg-gray-400 h-full flex items-center justify-end pr-2"
                         >
-                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 || 40}</span>
+                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 ?? 40}</span>
                         </motion.div>
                       </div>
                     </div>
-                    <div className="w-16"></div>
+                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 ?? 40}</div>
                   </div>
                 </div>
 
@@ -829,16 +838,16 @@ export default function Dashboard() {
               <div className="space-y-6">
                 {/* Strongest Platform Card */}
                 <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                  <h3 className="text-sm font-medium text-gray-500 mb-3">Strongest Platform<br />for {selectedBrand?.name || 'Zara'}</h3>
-                  <h2 className="text-3xl font-bold text-teal-600 mb-2">{selectedBrand?.platformVisibility?.strongestPlatform?.name || 'Reddit'}</h2>
-                  <p className="text-sm text-gray-600">Your score is {selectedBrand?.platformVisibility?.strongestPlatform?.score || 75}</p>
+                  <h3 className="text-sm font-medium text-gray-500 mb-3">Strongest Platform<br />for {selectedBrand?.name ?? 'Zara'}</h3>
+                  <h2 className="text-3xl font-bold text-teal-600 mb-2">{selectedBrand?.platformVisibility?.strongestPlatform?.name ?? 'Reddit'}</h2>
+                  <p className="text-sm text-gray-600">Your score is {selectedBrand?.platformVisibility?.strongestPlatform?.score ?? 75}</p>
                 </div>
 
                 {/* Competitor Lead Platform Card */}
                 <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                   <h3 className="text-sm font-medium text-gray-500 mb-3">Platform Where<br />Competitors Lead</h3>
-                  <h2 className="text-3xl font-bold text-gray-600 mb-2">{selectedBrand?.platformVisibility?.competitorLeadPlatform?.name || 'Google Search'}</h2>
-                  <p className="text-sm text-gray-600">{selectedBrand?.platformVisibility?.competitorLeadPlatform?.competitor || 'H&M'} leads with {selectedBrand?.platformVisibility?.competitorLeadPlatform?.score || 68}</p>
+                  <h2 className="text-3xl font-bold text-gray-600 mb-2">{selectedBrand?.platformVisibility?.competitorLeadPlatform?.name ?? 'Google Search'}</h2>
+                  <p className="text-sm text-gray-600">{selectedBrand?.platformVisibility?.competitorLeadPlatform?.competitor ?? 'H&M'} leads with {selectedBrand?.platformVisibility?.competitorLeadPlatform?.score ?? 68}</p>
                 </div>
               </div>
             </div>
