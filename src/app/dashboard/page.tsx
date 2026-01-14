@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
   BarChart3,
@@ -13,7 +13,8 @@ import {
   MessageSquare,
   Activity,
   Bell,
-  Search
+  Search,
+  ChevronDown
 } from "lucide-react";
 import {
   AreaChart,
@@ -26,6 +27,8 @@ import {
 } from "recharts";
 import { DotCube } from "@/components/DotCube";
 import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
 
 const data = [
   { name: "Mon", value: 400 },
@@ -39,6 +42,8 @@ const data = [
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("Overview");
+  const { data: session } = useSession();
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const sidebarItems = [
     { name: "Overview", icon: LayoutDashboard },
@@ -103,10 +108,59 @@ export default function Dashboard() {
             <button className="p-2 text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg bg-white">
               <Bell size={18} />
             </button>
-            <Link href="/login" className="bg-[#10b981] hover:bg-[#059669] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
-              <Users size={16} />
-              Business Login
-            </Link>
+
+            {session ? (
+              <div className="relative">
+                <button
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  className="flex items-center gap-2 pl-2 pr-1 py-1 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition-colors"
+                >
+                  {session.user?.image ? (
+                    <div className="h-8 w-8 relative rounded-full overflow-hidden">
+                      <Image
+                        src={session.user.image}
+                        alt={session.user.name || "User"}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-sm">
+                      {session.user?.name?.[0] || "U"}
+                    </div>
+                  )}
+                  <ChevronDown size={14} className="text-gray-500 mr-1" />
+                </button>
+
+                <AnimatePresence>
+                  {profileOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      className="absolute right-0 top-full mt-2 w-56 rounded-xl bg-white border border-gray-100 shadow-lg p-2 z-50 origin-top-right"
+                    >
+                      <div className="px-3 py-2 border-b border-gray-100 mb-1">
+                        <p className="text-sm font-medium text-gray-900 truncate">{session.user?.name}</p>
+                        <p className="text-xs text-gray-500 truncate">{session.user?.email}</p>
+                      </div>
+                      <button
+                        onClick={() => signOut()}
+                        className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      >
+                        <LogOut size={16} />
+                        Sign Out
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link href="/login" className="bg-[#10b981] hover:bg-[#059669] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                <Users size={16} />
+                Business Login
+              </Link>
+            )}
           </div>
         </header>
 
