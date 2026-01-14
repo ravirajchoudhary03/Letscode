@@ -88,6 +88,30 @@ export default function Dashboard() {
     { name: "Platform Visibility", icon: TrendingUp },
   ];
 
+  // Generate dynamic Share of Voice chart data
+  const getShareOfVoiceChartData = () => {
+    if (!selectedBrand?.shareOfVoice) return shareOfVoiceData;
+
+    const colors = ["#5EEAD4", "#D1D5DB", "#D9C9BA", "#93A8BA"];
+    const brandData = [
+      {
+        name: selectedBrand.name,
+        value: selectedBrand.shareOfVoice.score,
+        mentions: selectedBrand.shareOfVoice.mentions,
+        color: colors[0]
+      }
+    ];
+
+    const competitorData = selectedBrand.shareOfVoice.competitors?.map((comp, idx) => ({
+      name: comp.name,
+      value: comp.score,
+      mentions: comp.mentions,
+      color: colors[idx + 1] || colors[colors.length - 1]
+    })) || [];
+
+    return [...brandData, ...competitorData];
+  };
+
   return (
     <div className="flex h-screen bg-white text-gray-900 overflow-hidden font-sans">
       {/* Sidebar */}
@@ -371,7 +395,7 @@ export default function Dashboard() {
                 <div className="flex items-center justify-center h-96">
                   <RechartsPieChart width={500} height={400}>
                     <Pie
-                      data={shareOfVoiceData}
+                      data={getShareOfVoiceChartData()}
                       cx={250}
                       cy={180}
                       innerRadius={90}
@@ -379,7 +403,7 @@ export default function Dashboard() {
                       paddingAngle={2}
                       dataKey="value"
                     >
-                      {shareOfVoiceData.map((entry, index) => (
+                      {getShareOfVoiceChartData().map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
@@ -399,14 +423,14 @@ export default function Dashboard() {
                   </RechartsPieChart>
                   {/* Center Text */}
                   <div className="absolute flex flex-col items-center justify-center">
-                    <p className="text-5xl font-bold text-gray-900">45%</p>
-                    <p className="text-sm text-gray-500 mt-1">Zara SOV</p>
+                    <p className="text-5xl font-bold text-gray-900">{selectedBrand?.shareOfVoice?.score || 45}%</p>
+                    <p className="text-sm text-gray-500 mt-1">{selectedBrand?.name || 'Zara'} SOV</p>
                   </div>
                 </div>
 
                 {/* Legend */}
                 <div className="flex justify-center gap-6 mt-4 flex-wrap">
-                  {shareOfVoiceData.map((item) => (
+                  {getShareOfVoiceChartData().map((item) => (
                     <div key={item.name} className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
                       <span className="text-sm text-gray-600">{item.name}</span>
@@ -719,16 +743,16 @@ export default function Dashboard() {
               <div className="space-y-6">
                 {/* Strongest Platform Card */}
                 <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                  <h3 className="text-sm font-medium text-gray-500 mb-3">Strongest Platform<br />for Zara</h3>
-                  <h2 className="text-3xl font-bold text-teal-600 mb-2">Reddit</h2>
-                  <p className="text-sm text-gray-600">Your score is 75</p>
+                  <h3 className="text-sm font-medium text-gray-500 mb-3">Strongest Platform<br />for {selectedBrand?.name || 'Zara'}</h3>
+                  <h2 className="text-3xl font-bold text-teal-600 mb-2">{selectedBrand?.platformVisibility?.strongestPlatform?.name || 'Reddit'}</h2>
+                  <p className="text-sm text-gray-600">Your score is {selectedBrand?.platformVisibility?.strongestPlatform?.score || 75}</p>
                 </div>
 
                 {/* Competitor Lead Platform Card */}
                 <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                   <h3 className="text-sm font-medium text-gray-500 mb-3">Platform Where<br />Competitors Lead</h3>
-                  <h2 className="text-3xl font-bold text-gray-600 mb-2">Google Search</h2>
-                  <p className="text-sm text-gray-600">H&M leads with 68</p>
+                  <h2 className="text-3xl font-bold text-gray-600 mb-2">{selectedBrand?.platformVisibility?.competitorLeadPlatform?.name || 'Google Search'}</h2>
+                  <p className="text-sm text-gray-600">{selectedBrand?.platformVisibility?.competitorLeadPlatform?.competitor || 'H&M'} leads with {selectedBrand?.platformVisibility?.competitorLeadPlatform?.score || 68}</p>
                 </div>
               </div>
             </div>
