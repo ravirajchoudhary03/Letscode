@@ -24,7 +24,7 @@ const useCases = [
 export function UseCases() {
   return (
     <section id="use-cases" className="relative py-24 px-6 bg-white z-10">
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -32,10 +32,10 @@ export function UseCases() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
             Built for Teams That Care About Market Position
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-700 max-w-2xl mx-auto text-lg">
             Whether you&apos;re launching or scaling, MarketEcho provides the insights you need.
           </p>
         </motion.div>
@@ -48,13 +48,13 @@ export function UseCases() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative p-8 rounded-2xl bg-gray-50 border border-gray-100 hover:border-emerald-500/30 transition-all duration-300 group"
+              className="relative p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-500/30 transition-all duration-300 group"
             >
               <div className="w-14 h-14 rounded-xl bg-emerald-600/10 flex items-center justify-center mb-6 group-hover:bg-emerald-600/20 transition-colors">
                 <useCase.icon className="w-7 h-7 text-emerald-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">{useCase.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{useCase.description}</p>
+              <h3 className="text-xl font-semibold text-black mb-3">{useCase.title}</h3>
+              <p className="text-slate-600 leading-relaxed">{useCase.description}</p>
             </motion.div>
           ))}
         </div>
