@@ -1,2 +1,0 @@
-// Quick TypeScript fix - adding type annotations
-// Line 105: comp: any, idx: number
