@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
@@ -43,6 +44,12 @@ const metrics = [
 ];
 
 export function Metrics() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <section id="metrics" className="relative py-24 px-6 bg-[#061a14]">
       <div className="max-w-6xl mx-auto relative z-10">
@@ -72,28 +79,30 @@ export function Metrics() {
             <h3 className="text-lg font-semibold text-white mb-2">Share of Voice (SOV)</h3>
             <p className="text-emerald-100/60 text-sm mb-8">{metrics[0].description}</p>
             <div className="h-56">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={sovData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={90}
-                    paddingAngle={4}
-                    dataKey="value"
-                    stroke="none"
-                  >
-                    {sovData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={index === 0 ? "#10b981" : entry.color} opacity={0.8} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#061a14', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                    itemStyle={{ color: '#fff' }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+              {mounted && (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={sovData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={90}
+                      paddingAngle={4}
+                      dataKey="value"
+                      stroke="none"
+                    >
+                      {sovData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={index === 0 ? "#10b981" : entry.color} opacity={0.8} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#061a14', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                      itemStyle={{ color: '#fff' }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              )}
             </div>
             <div className="flex flex-wrap justify-center gap-6 mt-6">
               {sovData.map((item, index) => (
@@ -157,31 +166,33 @@ export function Metrics() {
             <h3 className="text-lg font-semibold text-white mb-2">Platform-wise Visibility</h3>
             <p className="text-emerald-100/60 text-sm mb-8">{metrics[3].description}</p>
             <div className="h-56">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={platformData} layout="vertical" margin={{ left: -20 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
-                  <XAxis type="number" domain={[0, 100]} hide />
-                  <YAxis 
-                    dataKey="platform" 
-                    type="category" 
-                    tick={{ fill: "rgba(255,255,255,0.5)", fontSize: 12 }} 
-                    width={80}
-                    axisLine={false}
-                    tickLine={false}
-                  />
-                  <Tooltip 
-                    cursor={{ fill: 'rgba(255,255,255,0.02)' }}
-                    contentStyle={{ backgroundColor: '#061a14', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                    itemStyle={{ color: '#fff' }}
-                  />
-                  <Bar 
-                    dataKey="visibility" 
-                    fill="#10b981" 
-                    radius={[0, 6, 6, 0]} 
-                    barSize={24}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
+              {mounted && (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={platformData} layout="vertical" margin={{ left: -20 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
+                    <XAxis type="number" domain={[0, 100]} hide />
+                    <YAxis 
+                      dataKey="platform" 
+                      type="category" 
+                      tick={{ fill: "rgba(255,255,255,0.5)", fontSize: 12 }} 
+                      width={80}
+                      axisLine={false}
+                      tickLine={false}
+                    />
+                    <Tooltip 
+                      cursor={{ fill: 'rgba(255,255,255,0.02)' }}
+                      contentStyle={{ backgroundColor: '#061a14', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                      itemStyle={{ color: '#fff' }}
+                    />
+                    <Bar 
+                      dataKey="visibility" 
+                      fill="#10b981" 
+                      radius={[0, 6, 6, 0]} 
+                      barSize={24}
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
             </div>
           </motion.div>
         </div>

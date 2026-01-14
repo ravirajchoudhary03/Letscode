@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { 
   LayoutDashboard, 
   BarChart3, 
@@ -12,13 +12,9 @@ import {
   Users, 
   MessageSquare, 
   Activity,
-  ChevronRight,
-  Search,
   Bell
 } from "lucide-react";
 import { 
-  LineChart as ReLineChart, 
-  Line, 
   XAxis, 
   YAxis, 
   CartesianGrid, 
@@ -42,6 +38,11 @@ const data = [
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("Overview");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const sidebarItems = [
     { name: "Overview", icon: LayoutDashboard },
@@ -146,24 +147,26 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={data}>
-                  <defs>
-                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" />
-                  <XAxis dataKey="name" stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#0d0d0d', border: '1px solid #ffffff10', borderRadius: '8px' }}
-                    itemStyle={{ color: '#10b981' }}
-                  />
-                  <Area type="monotone" dataKey="value" stroke="#10b981" fillOpacity={1} fill="url(#colorValue)" strokeWidth={2} />
-                </AreaChart>
-              </ResponsiveContainer>
+              {mounted && (
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={data}>
+                    <defs>
+                      <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" />
+                    <XAxis dataKey="name" stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="#666" fontSize={12} tickLine={false} axisLine={false} />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: '#0d0d0d', border: '1px solid #ffffff10', borderRadius: '8px' }}
+                      itemStyle={{ color: '#10b981' }}
+                    />
+                    <Area type="monotone" dataKey="value" stroke="#10b981" fillOpacity={1} fill="url(#colorValue)" strokeWidth={2} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              )}
             </div>
           </div>
 
@@ -184,7 +187,7 @@ export default function Dashboard() {
                   <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
                     <motion.div 
                       initial={{ width: 0 }}
-                      animate={{ width: `${item.share}%` }}
+                      animate={mounted ? { width: `${item.share}%` } : { width: 0 }}
                       className={`h-full ${item.color}`}
                     />
                   </div>

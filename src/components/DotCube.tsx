@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export function DotCube({ size = "small" }: { size?: "small" | "large" }) {
@@ -18,6 +19,14 @@ export function DotCube({ size = "small" }: { size?: "small" | "large" }) {
       }
     }
   }
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <div style={{ width: cubeSize, height: cubeSize }} />;
 
   return (
     <div 
@@ -39,7 +48,7 @@ export function DotCube({ size = "small" }: { size?: "small" | "large" }) {
           repeat: Infinity,
           ease: "linear",
         }}
-        className="relative preserve-3d"
+        className="relative"
         style={{ 
           width: "100%", 
           height: "100%",
@@ -50,14 +59,17 @@ export function DotCube({ size = "small" }: { size?: "small" | "large" }) {
           <motion.div
             key={i}
             className="absolute rounded-full bg-white"
+            initial={false}
+            animate={{
+              x: dot.x * gap - (dotSize / 2),
+              y: dot.y * gap - (dotSize / 2),
+              z: dot.z * gap,
+            }}
             style={{
               width: dotSize,
               height: dotSize,
               left: "50%",
               top: "50%",
-              x: dot.x * gap - (dotSize / 2),
-              y: dot.y * gap - (dotSize / 2),
-              z: dot.z * gap,
             }}
           />
         ))}
