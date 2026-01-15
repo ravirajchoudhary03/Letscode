@@ -976,24 +976,6 @@ export default function Dashboard() {
             </div>
           </motion.div>
         )}
-
-        {/* Debug Panel - Temporary */}
-        {selectedBrand && (
-          <div className="mt-12 p-4 bg-slate-100 rounded-lg border-2 border-red-400 text-xs font-mono overflow-auto opacity-75 hover:opacity-100 transition-opacity">
-            <h4 className="font-bold text-red-600 mb-2 uppercase tracking-wider">Debug Data Scope</h4>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="font-bold text-gray-700">Competitors Raw:</p>
-                <pre>{JSON.stringify(selectedBrand?.shareOfVoice?.competitors, null, 2)}</pre>
-              </div>
-              <div>
-                <p className="font-bold text-gray-700">Brand Info:</p>
-                <p>Name: {selectedBrand?.name}</p>
-                <p>Category: {selectedBrand?.category || 'undefined (defaulting to fashion)'}</p>
-              </div>
-            </div>
-          </div>
-        )}
       </main>
     </div>
   );
