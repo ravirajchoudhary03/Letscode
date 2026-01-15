@@ -749,7 +749,7 @@ export default function Dashboard() {
 
                   {/* Competitor 1 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[0]?.name ?? 'Comp 1'}</div>
+                    <div className="w-16 text-right font-bold text-gray-700 truncate" title={selectedBrand?.shareOfVoice?.competitors?.[0]?.name}>{selectedBrand?.shareOfVoice?.competitors?.[0]?.name ?? 'Competitor 1'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -773,7 +773,7 @@ export default function Dashboard() {
 
                   {/* Competitor 2 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[1]?.name ?? 'Comp 2'}</div>
+                    <div className="w-16 text-right font-bold text-gray-700 truncate" title={selectedBrand?.shareOfVoice?.competitors?.[1]?.name}>{selectedBrand?.shareOfVoice?.competitors?.[1]?.name ?? 'Competitor 2'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
@@ -797,26 +797,26 @@ export default function Dashboard() {
 
                   {/* Competitor 3 */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 text-right font-bold text-gray-700">{selectedBrand?.shareOfVoice?.competitors?.[2]?.name ?? 'Comp 3'}</div>
+                    <div className="w-16 text-right font-bold text-gray-700 truncate" title={selectedBrand?.shareOfVoice?.competitors?.[2]?.name}>{selectedBrand?.shareOfVoice?.competitors?.[2]?.name ?? 'Competitor 3'}</div>
                     <div className="flex-1 flex items-center gap-1">
                       <div className="flex-1 bg-gray-100 rounded-lg h-12 relative overflow-hidden flex">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{ width: "20%" }}
+                          animate={{ width: "30%" }}
                           transition={{ duration: 1, delay: 0.3 }}
                           className="bg-teal-500 h-full"
                         />
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{ width: "50%" }}
+                          animate={{ width: "70%" }}
                           transition={{ duration: 1, delay: 0.3 }}
                           className="bg-gray-400 h-full flex items-center justify-end pr-2"
                         >
-                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 ?? 40}</span>
+                          <span className="text-white font-bold text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 ?? 30}</span>
                         </motion.div>
                       </div>
                     </div>
-                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 ?? 40}</div>
+                    <div className="w-16 text-gray-600 text-sm">{selectedBrand?.platformVisibility?.normalizedScores?.competitor3 ?? 30}</div>
                   </div>
                 </div>
 
