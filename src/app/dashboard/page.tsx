@@ -123,6 +123,31 @@ export default function Dashboard() {
 
     await new Promise(resolve => setTimeout(resolve, 800));
 
+    // Enrich data with realistic competitor names if generic placeholders are found
+    if (finalData?.shareOfVoice?.competitors) {
+      const category = finalData.category?.toLowerCase() || 'fashion';
+      const pools: Record<string, string[]> = {
+        'fashion': ['H&M', 'Myntra', 'Ajio', 'Westside', 'Pantaloons', 'Zara', 'Uniqlo'],
+        'beauty': ['Nykaa', 'Sugar', 'Mamaearth', 'Lakme', 'Plum', 'Sephora'],
+        'electronics': ['Samsung', 'Boat', 'Noise', 'OnePlus', 'Sony']
+      };
+
+      const pool = pools[category] || pools['fashion'];
+      // Filter out current brand to avoid self-comparison
+      const availableNames = pool.filter((n: string) => n.toLowerCase() !== finalData.name.toLowerCase());
+
+      finalData.shareOfVoice.competitors.forEach((comp: any, idx: number) => {
+        if (comp.name.startsWith('Competitor')) {
+          const newName = availableNames[idx] || comp.name;
+          // Also update any reference to this competitor in platformVisibility
+          if (finalData.platformVisibility?.competitorLeadPlatform?.competitor === comp.name) {
+            finalData.platformVisibility.competitorLeadPlatform.competitor = newName;
+          }
+          comp.name = newName;
+        }
+      });
+    }
+
     // 3. Show Result
     setSelectedBrand(finalData);
     setActiveTab("Product mention frequency");
