@@ -16,7 +16,8 @@ import {
   Search,
   ChevronDown,
   ArrowRight,
-  Loader2
+  Loader2,
+  Sparkles
 } from "lucide-react";
 import {
   AreaChart,
@@ -59,6 +60,27 @@ export default function Dashboard() {
   const [selectedBrand, setSelectedBrand] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [loadingStep, setLoadingStep] = useState("");
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [aiLoading, setAiLoading] = useState(false);
+
+  const generateInsights = async () => {
+    setAiLoading(true);
+    try {
+      const res = await fetch('/api/suggestions', {
+        method: 'POST',
+        body: JSON.stringify({
+          brand: selectedBrand?.name || brandSearch,
+          category: selectedBrand?.category || 'fashion'
+        })
+      });
+      const data = await res.json();
+      setSuggestions(data.suggestions || []);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   const handleBrandSearch = async () => {
     if (!brandSearch.trim()) return;
@@ -887,17 +909,57 @@ export default function Dashboard() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="flex flex-col items-center justify-center h-[60vh] text-center"
+            className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6"
           >
-            <div className="bg-emerald-50 p-6 rounded-full mb-6 relative">
-              <div className="absolute inset-0 bg-emerald-100 rounded-full animate-ping opacity-25"></div>
-              <Activity size={64} className="text-emerald-600 relative z-10" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Visibility Momentum</h2>
-            <p className="text-gray-500 max-w-md mx-auto mb-8">
-              We're building an advanced metric to track the velocity of your brand's presence over time.
-            </p>
-            <span className="px-4 py-2 bg-gray-900 text-white rounded-full text-sm font-medium">Coming Soon</span>
+            {suggestions.length === 0 ? (
+              <>
+                <div className="bg-emerald-50 p-6 rounded-full mb-2 relative">
+                  <div className="absolute inset-0 bg-emerald-100 rounded-full animate-pulse opacity-50"></div>
+                  <Activity size={64} className="text-emerald-600 relative z-10" />
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-2">Visibility Momentum AI</h2>
+                  <p className="text-gray-500 max-w-md mx-auto mb-8">
+                    Generate AI-powered actionable insights to boost your brand's presence velocity.
+                  </p>
+                </div>
+                <button
+                  onClick={generateInsights}
+                  disabled={aiLoading}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg disabled:opacity-50"
+                >
+                  {aiLoading ? <Loader2 className="animate-spin" /> : <Sparkles size={20} />}
+                  {aiLoading ? "Analyzing Market Signals..." : "Generate AI Insights"}
+                </button>
+                {aiLoading && <p className="text-xs text-emerald-600 animate-pulse">Consulting Gemini Engine...</p>}
+              </>
+            ) : (
+              <div className="w-full max-w-4xl px-4">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <Sparkles className="text-emerald-500" /> AI Strategic Recommendations
+                  </h2>
+                  <button onClick={() => setSuggestions([])} className="text-gray-400 hover:text-gray-600 text-sm">Reset</button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                  {suggestions.map((s, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xl hover:shadow-2xl transition-all"
+                    >
+                      <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-600 mb-4">
+                        <span className="font-bold">{i + 1}</span>
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-2">{s.title}</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">{s.description}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
           </motion.div>
         ) : (
           <motion.div
