@@ -138,9 +138,9 @@ export default function Dashboard() {
       const availableNames = pool.filter((n: string) => n.toLowerCase() !== finalData.name.toLowerCase());
 
       finalData.shareOfVoice.competitors.forEach((comp: any, idx: number) => {
-        // Check for generic names like "Competitor A", "Competitor 1", etc.
+        // Check for generic names like "Competitor A", "Competitor 1", etc. or "N/A"
         // We use include to be broader
-        if (comp.name && (comp.name.includes('Competitor') || comp.name.includes('competitor'))) {
+        if (comp.name && (comp.name.includes('Competitor') || comp.name.includes('competitor') || comp.name === 'N/A')) {
           const newName = availableNames[idx] || comp.name;
           // Also update any reference to this competitor in platformVisibility
           if (finalData.platformVisibility?.competitorLeadPlatform?.competitor === comp.name) {
