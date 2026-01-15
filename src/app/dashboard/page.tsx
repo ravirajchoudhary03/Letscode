@@ -164,6 +164,7 @@ export default function Dashboard() {
     { name: "Share of voice", icon: PieChart },
     { name: "Market index score", icon: LineChart },
     { name: "Platform Visibility", icon: TrendingUp },
+    { name: "Visibility Momentum", icon: Activity },
   ];
 
   // Generate dynamic Share of Voice chart data
@@ -881,6 +882,22 @@ export default function Dashboard() {
               </div>
             </div>
 
+          </motion.div>
+        ) : activeTab === "Visibility Momentum" ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col items-center justify-center h-[60vh] text-center"
+          >
+            <div className="bg-emerald-50 p-6 rounded-full mb-6 relative">
+              <div className="absolute inset-0 bg-emerald-100 rounded-full animate-ping opacity-25"></div>
+              <Activity size={64} className="text-emerald-600 relative z-10" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Visibility Momentum</h2>
+            <p className="text-gray-500 max-w-md mx-auto mb-8">
+              We're building an advanced metric to track the velocity of your brand's presence over time.
+            </p>
+            <span className="px-4 py-2 bg-gray-900 text-white rounded-full text-sm font-medium">Coming Soon</span>
           </motion.div>
         ) : (
           <motion.div
