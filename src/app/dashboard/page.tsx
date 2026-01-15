@@ -70,7 +70,7 @@ export default function Dashboard() {
 
     try {
       // 1. Fetch data first (background)
-      const response = await fetch(`/api/brands?name=${encodeURIComponent(brandSearch)}`);
+      const response = await fetch(`/api/brands?name=${encodeURIComponent(brandSearch)}`, { cache: 'no-store' });
 
       if (response.ok) {
         finalData = await response.json();
@@ -127,17 +127,20 @@ export default function Dashboard() {
     if (finalData?.shareOfVoice?.competitors) {
       const category = finalData.category?.toLowerCase() || 'fashion';
       const pools: Record<string, string[]> = {
-        'fashion': ['H&M', 'Myntra', 'Ajio', 'Westside', 'Pantaloons', 'Zara', 'Uniqlo'],
-        'beauty': ['Nykaa', 'Sugar', 'Mamaearth', 'Lakme', 'Plum', 'Sephora'],
-        'electronics': ['Samsung', 'Boat', 'Noise', 'OnePlus', 'Sony']
+        'fashion': ['H&M', 'Myntra', 'Ajio', 'Westside', 'Pantaloons', 'Zara', 'Uniqlo', 'Nike', 'Adidas'],
+        'sportswear': ['Nike', 'Adidas', 'Puma', 'Reebok', 'Under Armour', 'Asics'],
+        'beauty': ['Nykaa', 'Sugar', 'Mamaearth', 'Lakme', 'Plum', 'Sephora', 'MAC'],
+        'electronics': ['Samsung', 'Boat', 'Noise', 'OnePlus', 'Sony', 'Apple']
       };
 
       const pool = pools[category] || pools['fashion'];
-      // Filter out current brand to avoid self-comparison
+      // Filter out current brand to avoid self-comparison (case-insensitive)
       const availableNames = pool.filter((n: string) => n.toLowerCase() !== finalData.name.toLowerCase());
 
       finalData.shareOfVoice.competitors.forEach((comp: any, idx: number) => {
-        if (comp.name.startsWith('Competitor')) {
+        // Check for generic names like "Competitor A", "Competitor 1", etc.
+        // We use include to be broader
+        if (comp.name && (comp.name.includes('Competitor') || comp.name.includes('competitor'))) {
           const newName = availableNames[idx] || comp.name;
           // Also update any reference to this competitor in platformVisibility
           if (finalData.platformVisibility?.competitorLeadPlatform?.competitor === comp.name) {
